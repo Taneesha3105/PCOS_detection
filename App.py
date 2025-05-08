@@ -19,7 +19,7 @@ st.set_page_config(page_title="PCOS Detector", page_icon="🧬")
 col1, col2 = st.columns([1, 1])
 
 with col1:
-    banner_path = "/mnt/data/ca4b7412-6ad0-4aec-82ea-73fee5c156d1.png"
+    banner_path = "Screenshot 2025-05-08 203248.png"
     if os.path.exists(banner_path):
         st.image(banner_path, use_container_width=True)
 
