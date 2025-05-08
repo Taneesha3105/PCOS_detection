@@ -1,66 +1,35 @@
 import streamlit as st
 from PIL import Image
 
-# Set page layout
-st.set_page_config(layout="wide")
+# Page setup
+st.set_page_config(page_title="PCOS Detector", layout="wide")
 
-# Apply custom CSS for side-by-side layout
-st.markdown(
-    """
-    <style>
-    .container {
-        display: flex;
-        height: 100vh;
-    }
-    .left-side {
-        flex: 1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #f3f4f6;
-        overflow: hidden;
-    }
-    .left-side img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-    .right-side {
-        flex: 1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #f3f4f6;
-    }
-    .text-content {
-        max-width: 500px;
-        text-align: center;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
-# Create the layout container
-st.markdown('<div class="container">', unsafe_allow_html=True)
-
-# Left side: Uploaded image
-st.markdown('<div class="left-side">', unsafe_allow_html=True)
-uploaded_file = st.file_uploader("Upload an image", type=["png", "jpg", "jpeg"])
-if uploaded_file:
-    image = Image.open(uploaded_file)
-    st.image(image, use_column_width=True)
-else:
-    # Display default image if no upload yet
-    default_image = Image.open("default-image.png")  # Make sure this image exists in your repo
-    st.image(default_image, use_column_width=True)
-st.markdown('</div>', unsafe_allow_html=True)
-
-# Right side: Text
-st.markdown('<div class="right-side"><div class="text-content">', unsafe_allow_html=True)
-st.markdown("### 👋 Welcome to **PCOS Detector**")
+# Title and description area
+st.markdown("## 👋 Welcome to **PCOS Detector**")
 st.markdown("Please upload an ultrasound image to detect signs of **Polycystic Ovary Syndrome (PCOS)**.")
-st.markdown('</div></div>', unsafe_allow_html=True)
 
-# Close container
-st.markdown('</div>', unsafe_allow_html=True)
+# Divide the page into two columns
+col1, col2 = st.columns(2)
+
+with col1:
+    uploaded_file = st.file_uploader("Upload an image", type=["png", "jpg", "jpeg"])
+    if uploaded_file is not None:
+        image = Image.open(uploaded_file)
+        st.image(image, caption="Uploaded Image", use_column_width=True)
+    else:
+        # Fallback image if no upload — change this filename to your image
+        try:
+            default_image = Image.open("4c4b7811-bbba-4123-8b31-c5d836ef62db.png")  # or use a file you know exists
+            st.image(default_image, caption="Default Illustration", use_column_width=True)
+        except FileNotFoundError:
+            st.warning("Please upload an image.")
+
+with col2:
+    st.markdown("### 📌 Instructions")
+    st.write(
+        """
+        - Upload a clear ultrasound image.
+        - The model will analyze the image and check for PCOS signs.
+        - Results will appear below once implemented.
+        """
+    )
