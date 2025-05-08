@@ -25,7 +25,7 @@ with col1:
 
 with col2:
     st.markdown("## 👋WELCOME TO PCOS DETECTOR!**")
-    st.markdown("## 👋We aim to simplify the process of PCOS Detection**")
+    st.markdown("We aim to simplify the process of PCOS Detection")
     st.markdown("**Please upload an ultrasound image to detect signs of Polycystic Ovary Syndrome (PCOS)**")
 
 # Download model if not present
