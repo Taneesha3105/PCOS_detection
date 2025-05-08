@@ -15,6 +15,18 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # Streamlit config
 st.set_page_config(page_title="PCOS Detector", page_icon="🧬")
 
+# Set background color to grey using CSS
+st.markdown("""
+    <style>
+    body {
+        background-color: #f0f2f6;
+    }
+    .stApp {
+        background-color: #f0f2f6;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
 # Display side-by-side layout
 col1, col2 = st.columns([1, 1])
 
@@ -25,7 +37,7 @@ with col1:
 
 with col2:
     st.markdown("## 👋 Welcome to **PCOS Detector**")
-    st.markdown("Please upload an **ultrasound image** to detect signs of **Polycystic Ovary Syndrome (PCOS)** using AI.")
+    st.markdown("**Please upload an ultrasound image to detect signs of Polycystic Ovary Syndrome (PCOS)**.")
 
 # Download model if not present
 if not os.path.exists(MODEL_PATH):
