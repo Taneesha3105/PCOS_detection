@@ -13,9 +13,9 @@ CLASS_NAMES = ['No PCOS', 'PCOS']
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Streamlit config
-st.set_page_config(page_title="PCOS Detector", page_icon="🧬")
+st.set_page_config(page_title="PCOS Detector", page_icon="🧬", layout="wide")
 
-# Set background color to grey using CSS
+# Set background color and center layout styling
 st.markdown("""
     <style>
     body {
@@ -24,11 +24,18 @@ st.markdown("""
     .stApp {
         background-color: #f0f2f6;
     }
+    .centered-text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
+        padding: 20px;
+    }
     </style>
 """, unsafe_allow_html=True)
 
-# Display side-by-side layout
-col1, col2 = st.columns([1, 1])
+# Layout with two columns
+col1, col2 = st.columns([3, 2])
 
 with col1:
     banner_path = "Screenshot 2025-05-08 203248.png"
@@ -36,8 +43,10 @@ with col1:
         st.image(banner_path, use_container_width=True)
 
 with col2:
+    st.markdown('<div class="centered-text">', unsafe_allow_html=True)
     st.markdown("## 👋 Welcome to **PCOS Detector**")
     st.markdown("**Please upload an ultrasound image to detect signs of Polycystic Ovary Syndrome (PCOS)**.")
+    st.markdown('</div>', unsafe_allow_html=True)
 
 # Download model if not present
 if not os.path.exists(MODEL_PATH):
