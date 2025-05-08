@@ -5,34 +5,34 @@ import torch.nn as nn
 from torchvision import models, transforms
 import os
 import requests
+from streamlit_chat import message
 
-# Configuration
-
-# MODEL_URL = "https://github.com/vmalve/PCOSPredict/releases/download/v1.0.0/PCOS_resnet18_model.pth"
+# ---------------------------- Configuration ----------------------------
 MODEL_URL = "https://github.com/Taneesha3105/PCOS_detection/releases/download/v1.0.0/PCOS_resnet18_model.pth"
 MODEL_PATH = "PCOS_resnet18_model.pth"
 CLASS_NAMES = ['PCOS', 'No PCOS']
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-# Streamlit config
+# ---------------------------- Streamlit Page Setup ----------------------------
 st.set_page_config(page_title="PCOS Predictor", page_icon="🧬")
 
-# Hide Streamlit UI elements like GitHub link, menu, and footer
 st.markdown("""
     <style>
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     header {visibility: hidden;}
+    div[data-testid="stFileUploader"] > label > div {display: none;}
     </style>
 """, unsafe_allow_html=True)
 
-# Download model if not present
+# ---------------------------- Download Model ----------------------------
 if not os.path.exists(MODEL_PATH):
     with st.spinner("🔄 Downloading model..."):
         r = requests.get(MODEL_URL)
         with open(MODEL_PATH, "wb") as f:
             f.write(r.content)
 
+# ---------------------------- Load Model ----------------------------
 @st.cache_resource
 def load_model():
     model = models.resnet18(pretrained=False)
@@ -44,7 +44,7 @@ def load_model():
 
 model = load_model()
 
-# Image pre-processing
+# ---------------------------- Image Preprocessing ----------------------------
 transform = transforms.Compose([
     transforms.Resize((224, 224)),
     transforms.ToTensor(),
@@ -52,21 +52,10 @@ transform = transforms.Compose([
                          std=[0.229, 0.224, 0.225])
 ])
 
-# Header
+# ---------------------------- Image Classification UI ----------------------------
 st.title("🧬 PCOS Ultrasound Analyzer")
 st.markdown("Upload an **ultrasound image** to detect signs of **Polycystic Ovary Syndrome (PCOS)** using AI.")
 
-# CSS to hide drag-and-drop text
-st.markdown("""
-    <style>
-    /* Remove drag-and-drop prompt text */
-    div[data-testid="stFileUploader"] > label > div {
-        display: none;
-    }
-    </style>
-""", unsafe_allow_html=True)
-
-# Only shows the file select button
 uploaded_file = st.file_uploader("", type=["jpg", "jpeg", "png"])
 
 if uploaded_file is not None:
@@ -74,7 +63,6 @@ if uploaded_file is not None:
         image = Image.open(uploaded_file).convert("RGB")
         st.image(image, caption="📷 Uploaded Image", use_column_width=True)
 
-        # Prediction
         with st.spinner("🔍 Analyzing image..."):
             input_tensor = transform(image).unsqueeze(0).to(DEVICE)
             with torch.no_grad():
@@ -89,30 +77,39 @@ if uploaded_file is not None:
     except Exception:
         st.error("⚠️ Invalid image file. Please try again.")
 
-from streamlit_chat import message
+# ---------------------------- PCOS Chatbot ----------------------------
+st.markdown("## 💬 Chat with PCOS Assistant")
 
-# Initialize chat history
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# Chatbot section
-st.markdown("## 💬 Chat with PCOS Assistant")
-user_input = st.text_input("You:", key="user_input")
+user_input = st.text_input("Ask a question about PCOS:")
 
 if user_input:
-    # Simple rule-based response (replace with model/LLM API later)
-    if "pcos" in user_input.lower():
-        response = "PCOS stands for Polycystic Ovary Syndrome. It's a hormonal disorder common among women of reproductive age."
-    elif "symptoms" in user_input.lower():
-        response = "Common symptoms include irregular periods, excess androgen, and polycystic ovaries."
-    else:
-        response = "I'm here to help with questions related to PCOS. Try asking about symptoms or diagnosis."
+    pcos_keywords = [
+        "pcos", "polycystic", "ovary", "syndrome", "symptoms", "causes",
+        "treatment", "diagnosis", "irregular periods", "hormonal", "fertility",
+        "insulin", "androgen", "cysts", "ultrasound", "medicine", "weight", "hair"
+    ]
 
-    # Append both user and bot messages
+    user_text = user_input.lower()
+    if any(word in user_text for word in pcos_keywords):
+        if "symptom" in user_text:
+            response = "Common PCOS symptoms include irregular periods, excess androgen, acne, and ovarian cysts."
+        elif "cause" in user_text:
+            response = "PCOS may be caused by excess insulin, low-grade inflammation, or hereditary factors."
+        elif "treatment" in user_text or "cure" in user_text:
+            response = "PCOS treatments include lifestyle changes, hormonal therapy, and medications like metformin."
+        elif "diagnosis" in user_text:
+            response = "Doctors diagnose PCOS using blood tests, ultrasound imaging, and evaluation of symptoms."
+        else:
+            response = "PCOS is a hormonal disorder affecting women, often leading to irregular periods and cysts in ovaries."
+    else:
+        response = "Unrelated to PCOS."
+
     st.session_state.messages.append({"role": "user", "content": user_input})
     st.session_state.messages.append({"role": "assistant", "content": response})
 
 # Display chat history
 for msg in st.session_state.messages:
     message(msg["content"], is_user=(msg["role"] == "user"))
-
