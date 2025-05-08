@@ -111,5 +111,6 @@ if user_input:
     st.session_state.messages.append({"role": "assistant", "content": response})
 
 # Display chat history
-for msg in st.session_state.messages:
-    message(msg["content"], is_user=(msg["role"] == "user"))
+for i, msg in enumerate(st.session_state.messages):
+    message(msg["content"], is_user=(msg["role"] == "user"), key=f"chat_{i}")
+
