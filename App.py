@@ -90,7 +90,7 @@ st.markdown("---")
 st.markdown("### 🤖 Gemini Chat Assistant")
 st.markdown("Ask anything about PCOS, ultrasound diagnostics, or how this app works!")
 
-user_input = st.text_input("💬 You:", key="user_input")
+user_input = st.text_input("💬 Please ask a question:", key="user_input")
 if user_input:
     with st.spinner("Gemini is thinking..."):
         response = chat_session.send_message(user_input)
