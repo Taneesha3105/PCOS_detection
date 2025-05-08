@@ -14,12 +14,11 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Streamlit config
 st.set_page_config(page_title="PCOS Predictor", page_icon="🧬")
-# Safe use of a local image in local development
-if os.path.exists("Screenshot 2025-05-08 203248.png"):
-    st.image("Screenshot 2025-05-08 203248.png", use_container_width=True)
 
-
-
+# Display the uploaded banner image
+banner_path = "Screenshot 2025-05-08 203248.png"
+if os.path.exists(banner_path):
+    st.image(banner_path, use_container_width=True)
 
 # Download model if not present
 if not os.path.exists(MODEL_PATH):
@@ -82,4 +81,3 @@ if uploaded_file is not None:
 
     except Exception:
         st.error("⚠️ Invalid image file. Please try again.")
-
