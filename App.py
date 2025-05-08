@@ -13,12 +13,19 @@ CLASS_NAMES = ['No PCOS', 'PCOS']
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Streamlit config
-st.set_page_config(page_title="PCOS Predictor", page_icon="🧬")
+st.set_page_config(page_title="PCOS Detector", page_icon="🧬")
 
-# Display the uploaded banner image
-banner_path = "Screenshot 2025-05-08 203248.png"
-if os.path.exists(banner_path):
-    st.image(banner_path, use_container_width=True)
+# Display side-by-side layout
+col1, col2 = st.columns([1, 1])
+
+with col1:
+    banner_path = "/mnt/data/ca4b7412-6ad0-4aec-82ea-73fee5c156d1.png"
+    if os.path.exists(banner_path):
+        st.image(banner_path, use_container_width=True)
+
+with col2:
+    st.markdown("## 👋 Welcome to **PCOS Detector**")
+    st.markdown("Please upload an **ultrasound image** to detect signs of **Polycystic Ovary Syndrome (PCOS)** using AI.")
 
 # Download model if not present
 if not os.path.exists(MODEL_PATH):
@@ -45,10 +52,6 @@ transform = transforms.Compose([
     transforms.Normalize(mean=[0.485, 0.456, 0.406],
                          std=[0.229, 0.224, 0.225])
 ])
-
-# Header
-st.title("🧬 PCOS Ultrasound Analyzer")
-st.markdown("Upload an **ultrasound image** to detect signs of **Polycystic Ovary Syndrome (PCOS)** using AI.")
 
 # Hide drag-and-drop text
 st.markdown("""
