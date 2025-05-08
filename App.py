@@ -14,7 +14,7 @@ CLASS_NAMES = ['PCOS', 'No PCOS']
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # ---------------------------- Streamlit Page Setup ----------------------------
-st.set_page_config(page_title="PCOS Predictor", page_icon="🧬")
+st.set_page_config(page_title="PCOS Companion", page_icon="🧬")
 
 st.markdown("""
     <style>
@@ -22,8 +22,15 @@ st.markdown("""
     footer {visibility: hidden;}
     header {visibility: hidden;}
     div[data-testid="stFileUploader"] > label > div {display: none;}
+    .centered {
+        text-align: center;
+        margin-top: 20px;
+    }
     </style>
 """, unsafe_allow_html=True)
+
+# ---------------------------- Hero Banner ----------------------------
+st.image("68c4c55d-9cef-4d8e-8a29-658025b7a6fa.png", use_column_width=True)
 
 # ---------------------------- Download Model ----------------------------
 if not os.path.exists(MODEL_PATH):
@@ -77,40 +84,26 @@ if uploaded_file is not None:
     except Exception:
         st.error("⚠️ Invalid image file. Please try again.")
 
-# ---------------------------- PCOS Chatbot ----------------------------
+# ---------------------------- Chatbot UI ----------------------------
 st.markdown("## 💬 Chat with PCOS Assistant")
 
-if "messages" not in st.session_state:
-    st.session_state.messages = []
+faq_responses = {
+    "whats pcos?": "Polycystic ovary syndrome (PCOS) is a common hormonal disorder in women of reproductive age, often characterized by irregular periods, excess androgen levels, and cysts on the ovaries. It can also lead to other health issues like insulin resistance and an increased risk of type 2 diabetes. While there's no cure, symptoms can be managed through lifestyle changes, medication, and in some cases, surgery.",
+    "how to use the app?": "Just upload the ultrasound image of the ovary of the patient and you are good to go! Our app detects if you have PCOS or not",
+    "i face errors using your app": "Sorry for the inconvenience, please ask our help desk!"
+}
 
-user_input = st.text_input("Ask a question about PCOS:")
+if "messages" not in st.session_state:
+    st.session_state.messages = [{"role": "assistant", "content": "Welcome to the PCOS Companion chatbot. How can I assist you today?"}]
+
+user_input = st.text_input("Ask a question:")
 
 if user_input:
-    pcos_keywords = [
-        "pcos", "polycystic", "ovary", "syndrome", "symptoms", "causes",
-        "treatment", "diagnosis", "irregular periods", "hormonal", "fertility",
-        "insulin", "androgen", "cysts", "ultrasound", "medicine", "weight", "hair"
-    ]
-
-    user_text = user_input.lower()
-    if any(word in user_text for word in pcos_keywords):
-        if "symptom" in user_text:
-            response = "Common PCOS symptoms include irregular periods, excess androgen, acne, and ovarian cysts."
-        elif "cause" in user_text:
-            response = "PCOS may be caused by excess insulin, low-grade inflammation, or hereditary factors."
-        elif "treatment" in user_text or "cure" in user_text:
-            response = "PCOS treatments include lifestyle changes, hormonal therapy, and medications like metformin."
-        elif "diagnosis" in user_text:
-            response = "Doctors diagnose PCOS using blood tests, ultrasound imaging, and evaluation of symptoms."
-        else:
-            response = "PCOS is a hormonal disorder affecting women, often leading to irregular periods and cysts in ovaries."
-    else:
-        response = "Unrelated to PCOS."
+    user_query = user_input.strip().lower()
+    response = faq_responses.get(user_query, "Sorry, I don't have an answer for that right now.")
 
     st.session_state.messages.append({"role": "user", "content": user_input})
     st.session_state.messages.append({"role": "assistant", "content": response})
 
-# Display chat history
 for i, msg in enumerate(st.session_state.messages):
     message(msg["content"], is_user=(msg["role"] == "user"), key=f"chat_{i}")
-
