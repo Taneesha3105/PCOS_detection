@@ -15,18 +15,6 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # Streamlit config
 st.set_page_config(page_title="PCOS Detector", page_icon="🧬")
 
-# Inject custom CSS for background color
-st.markdown("""
-    <style>
-    body {
-        background-color: #f0f0f0;
-    }
-    .stApp {
-        background-color: #f0f0f0;
-    }
-    </style>
-""", unsafe_allow_html=True)
-
 # Display side-by-side layout
 col1, col2 = st.columns([1, 1])
 
