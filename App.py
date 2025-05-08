@@ -11,7 +11,7 @@ import google.generativeai as genai
 # ==== GEMINI CONFIGURATION ====
 GOOGLE_API_KEY = "AIzaSyBZqGn9XXw8ML1uUHaqjulYOGwyHhfa2as"  # Replace with your actual key or use st.secrets
 genai.configure(api_key=GOOGLE_API_KEY)
-chat_model = genai.GenerativeModel(model_name="models/gemini-2.0")
+chat_model = genai.GenerativeModel(model_name="models/gemini-pro")
 chat_session = chat_model.start_chat()
 
 # ==== MODEL CONFIGURATION ====
