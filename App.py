@@ -1,3 +1,4 @@
+
 import streamlit as st
 from PIL import Image
 import torch
@@ -8,7 +9,7 @@ import requests
 import google.generativeai as genai
 
 # ==== GEMINI CONFIGURATION ====
-GOOGLE_API_KEY = "YOUR_GEMINI_API_KEY_HERE"  # Replace with your actual key or use st.secrets
+GOOGLE_API_KEY = "AIzaSyDUmUbcmum1MgbYqzWCbDQh6kC1VwewMDI"  # Replace with your actual key or use st.secrets
 genai.configure(api_key=GOOGLE_API_KEY)
 chat_model = genai.GenerativeModel("gemini-pro")
 chat_session = chat_model.start_chat()
