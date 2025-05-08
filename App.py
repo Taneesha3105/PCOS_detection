@@ -5,6 +5,8 @@ import torch.nn as nn
 from torchvision import models, transforms
 import os
 import requests
+import base64
+from io import BytesIO
 
 # Configuration
 MODEL_URL = "https://github.com/Taneesha3105/PCOS_detection/releases/download/v1.0.0/PCOS_resnet18_model.pth"
@@ -13,40 +15,65 @@ CLASS_NAMES = ['No PCOS', 'PCOS']
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Streamlit config
-st.set_page_config(page_title="PCOS Detector", page_icon="🧬", layout="wide")
+st.set_page_config(page_title="PCOS Detector", page_icon="🧬")
 
-# Set background color and center layout styling
-st.markdown("""
+# Convert image to base64
+def get_image_base64(image_path):
+    with open(image_path, "rb") as img_file:
+        encoded = base64.b64encode(img_file.read()).decode()
+    return encoded
+
+# Load banner image
+banner_path = "Screenshot 2025-05-08 203248.png"
+image_base64 = get_image_base64(banner_path) if os.path.exists(banner_path) else ""
+
+# Custom layout styling and structure
+st.markdown(f"""
     <style>
-    body {
+    body, .stApp {{
         background-color: #f0f2f6;
-    }
-    .stApp {
-        background-color: #f0f2f6;
-    }
-    .centered-text {
+        margin: 0;
+        padding: 0;
+    }}
+    .main-container {{
+        display: flex;
+        height: 90vh;
+        border-radius: 12px;
+        overflow: hidden;
+    }}
+    .left-pane {{
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: white;
+    }}
+    .left-pane img {{
+        max-height: 100%;
+        max-width: 100%;
+        object-fit: contain;
+    }}
+    .right-pane {{
+        flex: 1;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        height: 100%;
-        padding: 20px;
-    }
+        align-items: center;
+        padding: 2rem;
+        background-color: #f0f2f6;
+    }}
     </style>
+
+    <div class="main-container">
+        <div class="left-pane">
+            <img src="data:image/png;base64,{image_base64}" alt="PCOS Banner" />
+        </div>
+        <div class="right-pane">
+            <h2>👋 Welcome to <b>PCOS Detector</b></h2>
+            <p><b>Please upload an ultrasound image to detect signs of Polycystic Ovary Syndrome (PCOS).</b></p>
+        </div>
+    </div>
 """, unsafe_allow_html=True)
-
-# Layout with two columns
-col1, col2 = st.columns([3, 2])
-
-with col1:
-    banner_path = "Screenshot 2025-05-08 203248.png"
-    if os.path.exists(banner_path):
-        st.image(banner_path, use_container_width=True)
-
-with col2:
-    st.markdown('<div class="centered-text">', unsafe_allow_html=True)
-    st.markdown("## 👋 Welcome to **PCOS Detector**")
-    st.markdown("**Please upload an ultrasound image to detect signs of Polycystic Ovary Syndrome (PCOS)**.")
-    st.markdown('</div>', unsafe_allow_html=True)
 
 # Download model if not present
 if not os.path.exists(MODEL_PATH):
@@ -84,6 +111,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # File upload
+st.markdown("### 📤 Upload Ultrasound Image")
 uploaded_file = st.file_uploader("", type=["jpg", "jpeg", "png"])
 
 if uploaded_file is not None:
