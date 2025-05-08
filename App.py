@@ -42,7 +42,7 @@ transform = transforms.Compose([
 ])
 
 # Top banner image
-banner = Image.open("0e6e8f86-0dd1-4526-a313-c90d204f9ab0.png")  # use your filename here
+banner = Image.open("Screenshot 2025-05-08 203248.png")  # use your filename here
 st.image(banner, use_column_width=True)
 
 # Title section
