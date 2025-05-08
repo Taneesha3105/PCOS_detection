@@ -8,7 +8,7 @@ import requests
 
 # Configuration
 
-MODEL\_URL = "[https://github.com/Taneesha3105/PCOS\_detection/releases/download/v1.0.0/PCOS\_resnet18\_model.pth](https://github.com/Taneesha3105/PCOS_detection/releases/download/v1.0.0/PCOS_resnet18_model.pth)"
+MODEL\_URL = "https://github.com/Taneesha3105/PCOS\_detection/releases/download/v1.0.0/PCOS\_resnet18\_model.pth](https://github.com/Taneesha3105/PCOS_detection/releases/download/v1.0.0/PCOS_resnet18_model.pth"
 MODEL\_PATH = "PCOS\_resnet18\_model.pth"
 CLASS\_NAMES = \['No PCOS', 'PCOS']
 DEVICE = torch.device("cuda" if torch.cuda.is\_available() else "cpu")
