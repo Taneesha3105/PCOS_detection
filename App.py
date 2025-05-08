@@ -5,17 +5,21 @@ import torch.nn as nn
 from torchvision import models, transforms
 import os
 import requests
+import google.generativeai as genai
 
-# Configuration
+# ==== GEMINI CONFIGURATION ====
+GOOGLE_API_KEY = "YOUR_GEMINI_API_KEY_HERE"  # Replace with your actual key or use st.secrets
+genai.configure(api_key=GOOGLE_API_KEY)
+chat_model = genai.GenerativeModel("gemini-pro")
+chat_session = chat_model.start_chat()
+
+# ==== MODEL CONFIGURATION ====
 MODEL_URL = "https://github.com/Taneesha3105/PCOS_detection/releases/download/v1.0.0/PCOS_resnet18_model.pth"
 MODEL_PATH = "PCOS_resnet18_model.pth"
 CLASS_NAMES = ['PCOS', 'No PCOS']
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-# Streamlit config
 st.set_page_config(page_title="PCOS Detector", page_icon="🧬")
-
-# Display side-by-side layout
 col1, col2 = st.columns([1, 1])
 
 with col1:
@@ -28,7 +32,6 @@ with col2:
     st.markdown("We aim to simplify the process of PCOS detection in females")
     st.markdown("Please upload an ultrasound image below to detect signs of Polycystic Ovary Syndrome (PCOS)")
 
-# Download model if not present
 if not os.path.exists(MODEL_PATH):
     with st.spinner("🔄 Downloading model..."):
         r = requests.get(MODEL_URL)
@@ -46,7 +49,6 @@ def load_model():
 
 model = load_model()
 
-# Image pre-processing
 transform = transforms.Compose([
     transforms.Resize((224, 224)),
     transforms.ToTensor(),
@@ -54,7 +56,6 @@ transform = transforms.Compose([
                          std=[0.229, 0.224, 0.225])
 ])
 
-# Hide drag-and-drop text
 st.markdown("""
     <style>
     div[data-testid="stFileUploader"] > label > div {
@@ -63,7 +64,6 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# File upload
 uploaded_file = st.file_uploader("", type=["jpg", "jpeg", "png"])
 
 if uploaded_file is not None:
@@ -71,7 +71,6 @@ if uploaded_file is not None:
         image = Image.open(uploaded_file).convert("RGB")
         st.image(image, caption="📷 Uploaded Image", use_container_width=True)
 
-        # Prediction
         with st.spinner("🔍 Analyzing image..."):
             input_tensor = transform(image).unsqueeze(0).to(DEVICE)
             with torch.no_grad():
@@ -85,3 +84,14 @@ if uploaded_file is not None:
 
     except Exception:
         st.error("⚠️ Invalid image file. Please try again.")
+
+# ==== GEMINI CHATBOT SECTION ====
+st.markdown("---")
+st.markdown("### 🤖 Gemini Chat Assistant")
+st.markdown("Ask anything about PCOS, ultrasound diagnostics, or how this app works!")
+
+user_input = st.text_input("💬 You:", key="user_input")
+if user_input:
+    with st.spinner("Gemini is thinking..."):
+        response = chat_session.send_message(user_input)
+        st.markdown(f"**🧠 Gemini:** {response.text}")
