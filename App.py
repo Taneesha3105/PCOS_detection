@@ -24,9 +24,9 @@ with col1:
         st.image(banner_path, use_container_width=True)
 
 with col2:
-    st.markdown("## 👋WELCOME TO PCOS DETECTOR!")
+    st.markdown("## 👋WELCOME TO THE PCOS DETECTOR!")
     st.markdown("We aim to simplify the process of PCOS Detection")
-    st.markdown("Please upload an ultrasound image to detect signs of Polycystic Ovary Syndrome (PCOS)")
+    st.markdown("Please upload an ultrasound image below to detect signs of Polycystic Ovary Syndrome (PCOS)")
 
 # Download model if not present
 if not os.path.exists(MODEL_PATH):
