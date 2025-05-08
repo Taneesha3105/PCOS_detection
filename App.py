@@ -75,18 +75,17 @@ if uploaded\_file is not None:
 try:
 image = Image.open(uploaded\_file).convert("RGB")
 st.image(image, caption="📷 Uploaded Image", use\_container\_width=True)
-\# Prediction
-with st.spinner("🔍 Analyzing image..."):
-input\_tensor = transform(image).unsqueeze(0).to(DEVICE)
-with torch.no\_grad():
-output = model(input\_tensor)
-\_, predicted = torch.max(output, 1)
-confidence = torch.nn.functional.softmax(output, dim=1)\[0]\[predicted.item()].item()
-prediction = CLASS\_NAMES\[predicted.item()]
+    # Prediction
+    with st.spinner("🔍 Analyzing image..."):
+        input_tensor = transform(image).unsqueeze(0).to(DEVICE)
+        with torch.no_grad():
+            output = model(input_tensor)
+            _, predicted = torch.max(output, 1)
+            confidence = torch.nn.functional.softmax(output, dim=1)[0][predicted.item()].item()
+            prediction = CLASS_NAMES[predicted.item()]
 
-st.success(f"🧠 **Prediction:** {prediction}")
-st.info(f"📊 **Confidence:** {confidence * 100:.2f}%")
-
+    st.success(f"🧠 **Prediction:** {prediction}")
+    st.info(f"📊 **Confidence:** {confidence * 100:.2f}%")
 
 except Exception:
-st.error("⚠️ Invalid image file. Please try again.")
+    st.error("⚠️ Invalid image file. Please try again.")
