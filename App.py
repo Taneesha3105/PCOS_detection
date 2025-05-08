@@ -88,3 +88,31 @@ if uploaded_file is not None:
 
     except Exception:
         st.error("⚠️ Invalid image file. Please try again.")
+
+from streamlit_chat import message
+
+# Initialize chat history
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
+# Chatbot section
+st.markdown("## 💬 Chat with PCOS Assistant")
+user_input = st.text_input("You:", key="user_input")
+
+if user_input:
+    # Simple rule-based response (replace with model/LLM API later)
+    if "pcos" in user_input.lower():
+        response = "PCOS stands for Polycystic Ovary Syndrome. It's a hormonal disorder common among women of reproductive age."
+    elif "symptoms" in user_input.lower():
+        response = "Common symptoms include irregular periods, excess androgen, and polycystic ovaries."
+    else:
+        response = "I'm here to help with questions related to PCOS. Try asking about symptoms or diagnosis."
+
+    # Append both user and bot messages
+    st.session_state.messages.append({"role": "user", "content": user_input})
+    st.session_state.messages.append({"role": "assistant", "content": response})
+
+# Display chat history
+for msg in st.session_state.messages:
+    message(msg["content"], is_user=(msg["role"] == "user"))
+
