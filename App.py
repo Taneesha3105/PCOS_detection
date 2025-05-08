@@ -12,8 +12,11 @@ MODEL_PATH = "PCOS_resnet18_model.pth"
 CLASS_NAMES = ['No PCOS', 'PCOS']
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-# Streamlit page setup
-st.set_page_config(page_title="PCOS Companion", page_icon="💖", layout="centered")
+# Streamlit config
+st.set_page_config(page_title="PCOS Predictor", page_icon="🧬")
+
+# Optional banner (hosted URL recommended)
+ st.image("Screenshot 2025-05-08 203248.png", use_container_width=True)
 
 # Download model if not present
 if not os.path.exists(MODEL_PATH):
@@ -33,7 +36,7 @@ def load_model():
 
 model = load_model()
 
-# Image transform
+# Image pre-processing
 transform = transforms.Compose([
     transforms.Resize((224, 224)),
     transforms.ToTensor(),
@@ -41,26 +44,29 @@ transform = transforms.Compose([
                          std=[0.229, 0.224, 0.225])
 ])
 
-# Top banner image
-banner = Image.open("Screenshot 2025-05-08 203248.png")  # use your filename here
-st.image(banner, use_column_width=True)
+# Header
+st.title("🧬 PCOS Ultrasound Analyzer")
+st.markdown("Upload an **ultrasound image** to detect signs of **Polycystic Ovary Syndrome (PCOS)** using AI.")
 
-# Title section
+# Hide drag-and-drop text
 st.markdown("""
-    <h2 style='text-align: center; color: #2E2E2E;'>Welcome to <span style='color:#BF1363;'>PCOS Companion</span></h2>
-    <p style='text-align: center; font-size: 18px;'>A Women's Best Friend – Predict PCOS from ultrasound images with AI</p>
+    <style>
+    div[data-testid="stFileUploader"] > label > div {
+        display: none;
+    }
+    </style>
 """, unsafe_allow_html=True)
 
-# Upload section
-st.markdown("### 📤 Upload an Ultrasound Image")
-uploaded_file = st.file_uploader("Choose an image file", type=["jpg", "jpeg", "png"])
+# File upload
+uploaded_file = st.file_uploader("", type=["jpg", "jpeg", "png"])
 
-if uploaded_file:
+if uploaded_file is not None:
     try:
         image = Image.open(uploaded_file).convert("RGB")
-        st.image(image, caption="🖼 Uploaded Ultrasound", use_column_width=True)
+        st.image(image, caption="📷 Uploaded Image", use_container_width=True)
 
-        with st.spinner("🔍 Analyzing..."):
+        # Prediction
+        with st.spinner("🔍 Analyzing image..."):
             input_tensor = transform(image).unsqueeze(0).to(DEVICE)
             with torch.no_grad():
                 output = model(input_tensor)
@@ -68,15 +74,9 @@ if uploaded_file:
                 confidence = torch.nn.functional.softmax(output, dim=1)[0][predicted.item()].item()
                 prediction = CLASS_NAMES[predicted.item()]
 
-        # Results
-        st.success(f"💡 **Prediction:** {prediction}")
-        st.info(f"📊 **Confidence Score:** {confidence * 100:.2f}%")
+        st.success(f"🧠 **Prediction:** {prediction}")
+        st.info(f"📊 **Confidence:** {confidence * 100:.2f}%")
 
-    except Exception as e:
-        st.error(f"⚠️ Error: {str(e)}")
+    except Exception:
+        st.error("⚠️ Invalid image file. Please try again.")
 
-# Optional Footer
-st.markdown("""
-<hr>
-<p style='text-align: center; font-size: 14px; color: grey;'>Empowering women's health through AI | © 2025 PCOS Companion</p>
-""", unsafe_allow_html=True)
