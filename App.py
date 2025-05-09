@@ -44,7 +44,7 @@ st.markdown('<div class="small-font">Upload an ultrasound image below to detect 
 st.markdown('<div class="small-font">You can also ask health-related questions using our Gemini Chat Assistant.</div>', unsafe_allow_html=True)
 
 # ==== BANNER IMAGE ====
-banner_path = "a9be53dd-a2ee-4573-9e8e-6b9b51500bbb.png"  # Update this if needed
+banner_path = "ChatGPT Image May 9, 2025, 10_39_26 AM.png"  # Update this if needed
 if os.path.exists(banner_path):
     st.image(banner_path, use_container_width=True)
 
