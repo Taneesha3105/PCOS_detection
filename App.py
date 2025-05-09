@@ -7,6 +7,16 @@ import os
 import requests
 import google.generativeai as genai
 
+# ==== CUSTOM FONT (ARIAL) ====
+st.markdown("""
+    <style>
+    /* Applies Arial to all text in the app */
+    html, body, [class*="css"] {
+        font-family: Arial, sans-serif;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
 # ==== GEMINI CONFIGURATION ====
 GOOGLE_API_KEY = "AIzaSyBZqGn9XXw8ML1uUHaqjulYOGwyHhfa2as"  # Replace with your actual key or use st.secrets
 genai.configure(api_key=GOOGLE_API_KEY)
