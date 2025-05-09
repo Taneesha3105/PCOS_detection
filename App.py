@@ -20,25 +20,28 @@ CLASS_NAMES = ['PCOS', 'No PCOS']
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 st.set_page_config(page_title="PCOSense", layout="wide", page_icon="🧬")
-
-# ==== CUSTOM CSS WITH ARIAL FONT ====
+# ==== CUSTOM CSS FOR FONT ====
 st.markdown("""
     <style>
-    * {
-        font-family: Arial, sans-serif !important;
+    html, body, [class*="css"] {
+        font-family: 'Century Gothic', sans-serif;
+        font-weight: bold;
     }
     .big-font {
         font-size: 42px !important;
-        font-weight: 700;
+        font-weight: bold !important;
     }
     .medium-font {
         font-size: 22px !important;
+        font-weight: bold !important;
     }
     .small-font {
         font-size: 18px !important;
+        font-weight: bold !important;
     }
     </style>
 """, unsafe_allow_html=True)
+
 
 
 # ==== HEADER ====
