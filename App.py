@@ -23,7 +23,7 @@ st.set_page_config(page_title="PCOS Detector", page_icon="🧬")
 col1, col2 = st.columns([1, 1])
 
 with col1:
-    banner_path = "Screenshot 2025-05-08 203248.png"
+    banner_path = "ChatGPT Image May 9, 2025, 10_39_26 AM.png"
     if os.path.exists(banner_path):
         st.image(banner_path, use_container_width=True)
 
