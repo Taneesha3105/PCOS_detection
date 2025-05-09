@@ -94,4 +94,4 @@ user_input = st.text_input("💬 Please ask a question:", key="user_input")
 if user_input:
     with st.spinner("Gemini is thinking..."):
         response = chat_session.send_message(user_input)
-        st.markdown(f"**🧠 Gemini:** {response.text}")
+        st.markdown(f"**🧠 Chatbot:** {response.text}")
