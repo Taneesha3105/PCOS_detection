@@ -24,12 +24,12 @@ st.set_page_config(page_title="PCOSense", page_icon="🧬", layout="centered")
 
 # ==== HEADER SECTION ====
 st.markdown("<h1 style='font-family:Arial; font-size: 40px;'>🧬 PCOSense</h1>", unsafe_allow_html=True)
-st.markdown("### We aim to simplify the process of PCOS detection in females.")
+st.markdown("### We aim to simply the process of PCOS detection in females.")
 
 # ==== LOGO/IMAGE ====
 banner_path = "ChatGPT Image May 9, 2025, 10_39_26 AM.png"
-if os.path.exists(banner_path):
-    st.image(banner_path, use_column_width=True)
+st.image(image, caption="📷 Uploaded Image", use_container_width=True)
+
 
 # ==== INSTRUCTIONS ====
 st.markdown("#### 📤 Upload an ultrasound image to detect signs of PCOS using AI.")
