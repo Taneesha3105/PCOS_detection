@@ -27,7 +27,7 @@ st.markdown("<h1 style='font-family:Arial; font-size: 40px;'>🧬 PCOSense</h1>"
 st.markdown("### We aim to simplify the process of PCOS detection in females.")
 
 # ==== LOGO/IMAGE ====
-banner_path = "/mnt/data/a9be53dd-a2ee-4573-9e8e-6b9b51500bbb.png"
+banner_path = "ChatGPT Image May 9, 2025, 10_39_26 AM.png"
 if os.path.exists(banner_path):
     st.image(banner_path, use_column_width=True)
 
