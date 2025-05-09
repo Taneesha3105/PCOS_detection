@@ -39,10 +39,10 @@ st.markdown("""
 
 # ==== HEADER ====
 st.markdown('<div class="big-font">🧬PCOSense</div>', unsafe_allow_html=True)
-st.markdown('<div class="medium-font">*We aim to simplify the process of PCOS detection in females.*</div>', unsafe_allow_html=True)
+st.markdown('<div class="medium-font">We aim to simplify the process of PCOS detection in females.</div>', unsafe_allow_html=True)
 st.markdown('<div class="small-font">Upload an ultrasound image below to detect signs of Polycystic Ovary Syndrome (PCOS) using AI.</div>', unsafe_allow_html=True)
 st.markdown('<div class="small-font">You can also ask health-related questions using our Gemini Chat Assistant.</div>', unsafe_allow_html=True)
-st.markdown('<div class="small-font">Thank you for using our app!.</div>', unsafe_allow_html=True)
+st.markdown('<div class="small-font">Thank you for using our app!</div>', unsafe_allow_html=True)
 
 
 # ==== BANNER IMAGE ====
