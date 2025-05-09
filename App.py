@@ -17,6 +17,7 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
+
 # ==== GEMINI CONFIGURATION ====
 GOOGLE_API_KEY = "AIzaSyBZqGn9XXw8ML1uUHaqjulYOGwyHhfa2as"  # Replace with your actual key or use st.secrets
 genai.configure(api_key=GOOGLE_API_KEY)
@@ -39,7 +40,7 @@ with col1:
 
 with col2:
     st.title("🧬Welcome to the PCOS Ultrasound Detector!🧬")
-    st.markdown("**We aim to simplify the process of PCOS detection in females.**")
+    st.markdown("*We aim to simplify the process of PCOS detection in females.*")
     st.markdown("Please upload an ultrasound image below to detect signs of Polycystic Ovary Syndrome(PCOS) using Machine Learning.")
     st.markdown("You can also try using our Gemini Chatbot to ask questions related to the disease.")
     st.markdown("Thank you for using our app!")
@@ -91,11 +92,11 @@ if uploaded_file is not None:
                 confidence = torch.nn.functional.softmax(output, dim=1)[0][predicted.item()].item()
                 prediction = CLASS_NAMES[predicted.item()]
 
-        st.success(f"🧠 **Prediction:** {prediction}")
-        st.info(f"📊 **Confidence:** {confidence * 100:.2f}%")
+        st.success(f"🧠 *Prediction:* {prediction}")
+        st.info(f"📊 *Confidence:* {confidence * 100:.2f}%")
 
     except Exception:
-        st.error("⚠️ Invalid image file. Please try again.")
+        st.error("⚠ Invalid image file. Please try again.")
 
 # ==== GEMINI CHATBOT SECTION ====
 st.markdown("---")
@@ -106,4 +107,4 @@ user_input = st.text_input("💬 Please ask a question:", key="user_input")
 if user_input:
     with st.spinner("Gemini is thinking..."):
         response = chat_session.send_message(user_input)
-        st.markdown(f"**🧠 Chatbot:** {response.text}")
+        st.markdown(f"🧠 Chatbot:** {response.text}")
