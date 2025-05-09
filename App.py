@@ -28,10 +28,10 @@ with col1:
         st.image(banner_path, use_container_width=True)
 
 with col2:
-    st.title("🧬Welcome To The PCOS Ultrasound Detector!🧬")
+    st.title("🧬Welcome to the PCOS Ultrasound Detector!🧬")
     st.markdown("**We aim to simplify the process of PCOS detection in females.**")
     st.markdown("Please upload an ultrasound image below to detect signs of Polycystic Ovary Syndrome(PCOS) using Machine Learning.")
-    st.markdown("You can also try using our Gemini Chatbot to ask questions related to the disease!.")
+    st.markdown("You can also try using our Gemini Chatbot to ask questions related to the disease.")
     st.markdown("Thank you for using our app!")
 
 if not os.path.exists(MODEL_PATH):
