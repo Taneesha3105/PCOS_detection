@@ -21,9 +21,12 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 st.set_page_config(page_title="PCOSense", layout="wide", page_icon="🧬")
 
-# ==== CUSTOM CSS ====
+# ==== CUSTOM CSS WITH ARIAL FONT ====
 st.markdown("""
     <style>
+    * {
+        font-family: Arial, sans-serif !important;
+    }
     .big-font {
         font-size: 42px !important;
         font-weight: 700;
@@ -36,6 +39,7 @@ st.markdown("""
     }
     </style>
 """, unsafe_allow_html=True)
+
 
 # ==== HEADER ====
 st.markdown('<div class="big-font">🧬PCOSense</div>', unsafe_allow_html=True)
