@@ -20,29 +20,22 @@ CLASS_NAMES = ['PCOS', 'No PCOS']
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 st.set_page_config(page_title="PCOSense", layout="wide", page_icon="🧬")
-# ==== CUSTOM CSS FOR FONT ====
+
+# ==== CUSTOM CSS ====
 st.markdown("""
     <style>
-    html, body, [class*="css"] {
-        font-family: 'Century Gothic', sans-serif;
-        font-weight: bold;
-    }
     .big-font {
         font-size: 42px !important;
-        font-weight: bold !important;
+        font-weight: 700;
     }
     .medium-font {
         font-size: 22px !important;
-        font-weight: bold !important;
     }
     .small-font {
         font-size: 18px !important;
-        font-weight: bold !important;
     }
     </style>
 """, unsafe_allow_html=True)
-
-
 
 # ==== HEADER ====
 st.markdown('<div class="big-font">🧬PCOSense</div>', unsafe_allow_html=True)
@@ -109,8 +102,8 @@ if uploaded_file is not None:
                 confidence = torch.nn.functional.softmax(output, dim=1)[0][predicted.item()].item()
                 prediction = CLASS_NAMES[predicted.item()]
 
-        st.success(f"🧠 *Prediction:* {prediction}")
-        st.info(f"📊 *Confidence:* {confidence * 100:.2f}%")
+        st.success(f"🧠 Prediction: {prediction}")
+        st.info(f"📊 Confidence: {confidence * 100:.2f}%")
 
     except Exception as e:
         st.error("⚠ Invalid image file. Please try again.")
@@ -124,4 +117,4 @@ user_input = st.text_input("💬 Please ask a question:")
 if user_input:
     with st.spinner("Gemini is thinking..."):
         response = chat_session.send_message(user_input)
-        st.markdown(f"🧠 Chatbot: **{response.text}**")
+        st.markdown(f"🧠 Chatbot: *{response.text}*")
