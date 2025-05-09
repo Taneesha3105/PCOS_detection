@@ -29,7 +29,7 @@ with col1:
 
 with col2:
     st.title("🧬Welcome To The PCOS Ultrasound Detector!🧬")
-    st.markdown("We aim to simplify the process of PCOS detection in females.")
+    st.markdown("**We aim to simplify the process of PCOS detection in females.**")
     st.markdown("Please upload an ultrasound image below to detect signs of Polycystic Ovary Syndrome(PCOS) using Machine Learning.")
     st.markdown("Thank you for using our app!")
 
