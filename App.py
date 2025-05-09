@@ -7,16 +7,25 @@ import os
 import requests
 import google.generativeai as genai
 
-# ==== CUSTOM FONT (ARIAL) ====
+# ==== GLOBAL FONT SETTING (ARIAL) ====
 st.markdown("""
     <style>
-    /* Applies Arial to all text in the app */
+    /* Apply Arial to all text elements */
     html, body, [class*="css"] {
         font-family: Arial, sans-serif;
     }
+    
+    /* Style for file uploader */
+    div[data-testid="stFileUploader"] > label > div {
+        display: none;
+    }
+    
+    /* Ensure emojis and special characters display properly */
+    .st-emotion-cache-1v0mbdj {
+        font-family: Arial, sans-serif !important;
+    }
     </style>
     """, unsafe_allow_html=True)
-
 
 # ==== GEMINI CONFIGURATION ====
 GOOGLE_API_KEY = "AIzaSyBZqGn9XXw8ML1uUHaqjulYOGwyHhfa2as"  # Replace with your actual key or use st.secrets
@@ -68,14 +77,6 @@ transform = transforms.Compose([
     transforms.Normalize(mean=[0.485, 0.456, 0.406],
                          std=[0.229, 0.224, 0.225])
 ])
-
-st.markdown("""
-    <style>
-    div[data-testid="stFileUploader"] > label > div {
-        display: none;
-    }
-    </style>
-""", unsafe_allow_html=True)
 
 uploaded_file = st.file_uploader("", type=["jpg", "jpeg", "png"])
 
