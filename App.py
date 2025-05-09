@@ -8,7 +8,7 @@ import requests
 import google.generativeai as genai
 
 # ==== GEMINI CONFIGURATION ====
-GOOGLE_API_KEY = "AIzaSyBZqGn9XXw8ML1uUHaqjulYOGwyHhfa2as"  # Replace with st.secrets in production
+GOOGLE_API_KEY = "AIzaSyBZqGn9XXw8ML1uUHaqjulYOGwyHhfa2as"
 genai.configure(api_key=GOOGLE_API_KEY)
 chat_model = genai.GenerativeModel(model_name="models/gemini-2.0-flash")
 chat_session = chat_model.start_chat()
@@ -19,29 +19,42 @@ MODEL_PATH = "PCOS_resnet18_model.pth"
 CLASS_NAMES = ['PCOS', 'No PCOS']
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-# ==== PAGE CONFIGURATION ====
-st.set_page_config(page_title="PCOSense", page_icon="🧬")
-col1, col2 = st.columns([1, 1])
+st.set_page_config(page_title="PCOSense", layout="wide", page_icon="🧬")
 
-with col1:
-    banner_path = "ChatGPT Image May 9, 2025, 10_39_26 AM.png"  # Change to your banner file name
-    if os.path.exists(banner_path):
-        st.image(banner_path, use_container_width=True)
+# ==== CUSTOM CSS ====
+st.markdown("""
+    <style>
+    .big-font {
+        font-size: 42px !important;
+        font-weight: 700;
+    }
+    .medium-font {
+        font-size: 22px !important;
+    }
+    .small-font {
+        font-size: 18px !important;
+    }
+    </style>
+""", unsafe_allow_html=True)
 
-with col2:
-    st.title("🧬 PCOSense")
-    st.markdown("*We aim to simplify the process of PCOS detection in females.*")
-    st.markdown("Upload an ultrasound image below to detect signs of Polycystic Ovary Syndrome (PCOS) using Machine Learning.")
-    st.markdown("You can also ask health-related questions using our Gemini Chat Assistant.")
+# ==== HEADER ====
+st.markdown('<div class="big-font">🧬 PCOSense</div>', unsafe_allow_html=True)
+st.markdown('<div class="medium-font">We aim to simplify the process of PCOS detection in females.</div>', unsafe_allow_html=True)
+st.markdown('<div class="small-font">Upload an ultrasound image below to detect signs of Polycystic Ovary Syndrome (PCOS) using AI.</div>', unsafe_allow_html=True)
+st.markdown('<div class="small-font">You can also ask health-related questions using our Gemini Chat Assistant.</div>', unsafe_allow_html=True)
 
-# ==== MODEL DOWNLOAD ====
+# ==== BANNER IMAGE ====
+banner_path = "a9be53dd-a2ee-4573-9e8e-6b9b51500bbb.png"  # Update this if needed
+if os.path.exists(banner_path):
+    st.image(banner_path, use_container_width=True)
+
+# ==== DOWNLOAD MODEL ====
 if not os.path.exists(MODEL_PATH):
     with st.spinner("🔄 Downloading model..."):
         r = requests.get(MODEL_URL)
         with open(MODEL_PATH, "wb") as f:
             f.write(r.content)
 
-# ==== MODEL LOADING ====
 @st.cache_resource
 def load_model():
     model = models.resnet18(pretrained=False)
@@ -53,7 +66,7 @@ def load_model():
 
 model = load_model()
 
-# ==== IMAGE TRANSFORM ====
+# ==== TRANSFORMS ====
 transform = transforms.Compose([
     transforms.Resize((224, 224)),
     transforms.ToTensor(),
@@ -61,7 +74,7 @@ transform = transforms.Compose([
                          std=[0.229, 0.224, 0.225])
 ])
 
-# ==== FILE UPLOADER UI ====
+# ==== HIDE LABEL ====
 st.markdown("""
     <style>
     div[data-testid="stFileUploader"] > label > div {
@@ -70,9 +83,9 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+# ==== IMAGE UPLOAD ====
 uploaded_file = st.file_uploader("", type=["jpg", "jpeg", "png"])
 
-# ==== IMAGE PREDICTION ====
 if uploaded_file is not None:
     try:
         image = Image.open(uploaded_file).convert("RGB")
@@ -92,12 +105,12 @@ if uploaded_file is not None:
     except Exception as e:
         st.error("⚠ Invalid image file. Please try again.")
 
-# ==== GEMINI CHATBOT SECTION ====
+# ==== GEMINI CHAT ====
 st.markdown("---")
-st.markdown("### 🤖 Gemini Chat Assistant")
-st.markdown("Ask anything about PCOS, ultrasound diagnostics, or how this app works!")
+st.markdown('<div class="medium-font">🤖 Gemini Chat Assistant</div>', unsafe_allow_html=True)
+st.markdown('<div class="small-font">Ask anything about PCOS, ultrasound diagnostics, or how this app works!</div>', unsafe_allow_html=True)
 
-user_input = st.text_input("💬 Please ask a question:", key="user_input")
+user_input = st.text_input("💬 Please ask a question:")
 if user_input:
     with st.spinner("Gemini is thinking..."):
         response = chat_session.send_message(user_input)
