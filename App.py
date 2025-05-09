@@ -8,7 +8,7 @@ import requests
 import google.generativeai as genai
 
 # ==== GEMINI CONFIGURATION ====
-GOOGLE_API_KEY = "AIzaSyBZqGn9XXw8ML1uUHaqjulYOGwyHhfa2as"  # Replace with your actual key or use st.secrets
+GOOGLE_API_KEY = "AIzaSyBZqGn9XXw8ML1uUHaqjulYOGwyHhfa2as"
 genai.configure(api_key=GOOGLE_API_KEY)
 chat_model = genai.GenerativeModel(model_name="models/gemini-2.0-flash")
 chat_session = chat_model.start_chat()
@@ -19,21 +19,23 @@ MODEL_PATH = "PCOS_resnet18_model.pth"
 CLASS_NAMES = ['PCOS', 'No PCOS']
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-st.set_page_config(page_title="PCOS Detector", page_icon="🧬")
-col1, col2 = st.columns([1, 1])
+# ==== PAGE SETUP ====
+st.set_page_config(page_title="PCOSense", page_icon="🧬", layout="centered")
 
-with col1:
-    banner_path = "ChatGPT Image May 9, 2025, 10_39_26 AM.png"
-    if os.path.exists(banner_path):
-        st.image(banner_path, use_container_width=True)
+# ==== HEADER SECTION ====
+st.markdown("<h1 style='font-family:Arial; font-size: 40px;'>🧬 PCOSense</h1>", unsafe_allow_html=True)
+st.markdown("### We aim to simplify the process of PCOS detection in females.")
 
-with col2:
-    st.title("🧬Welcome to the PCOS Ultrasound Detector!🧬")
-    st.markdown("**We aim to simplify the process of PCOS detection in females.**")
-    st.markdown("Please upload an ultrasound image below to detect signs of Polycystic Ovary Syndrome(PCOS) using Machine Learning.")
-    st.markdown("You can also try using our Gemini Chatbot to ask questions related to the disease.")
-    st.markdown("Thank you for using our app!")
+# ==== LOGO/IMAGE ====
+banner_path = "/mnt/data/a9be53dd-a2ee-4573-9e8e-6b9b51500bbb.png"
+if os.path.exists(banner_path):
+    st.image(banner_path, use_column_width=True)
 
+# ==== INSTRUCTIONS ====
+st.markdown("#### 📤 Upload an ultrasound image to detect signs of PCOS using AI.")
+st.markdown("You can also chat with our Gemini assistant for more help.")
+
+# ==== DOWNLOAD MODEL ====
 if not os.path.exists(MODEL_PATH):
     with st.spinner("🔄 Downloading model..."):
         r = requests.get(MODEL_URL)
@@ -58,20 +60,13 @@ transform = transforms.Compose([
                          std=[0.229, 0.224, 0.225])
 ])
 
-st.markdown("""
-    <style>
-    div[data-testid="stFileUploader"] > label > div {
-        display: none;
-    }
-    </style>
-""", unsafe_allow_html=True)
-
-uploaded_file = st.file_uploader("", type=["jpg", "jpeg", "png"])
+# ==== UPLOAD AND PREDICT ====
+uploaded_file = st.file_uploader("Upload image", type=["jpg", "jpeg", "png"])
 
 if uploaded_file is not None:
     try:
         image = Image.open(uploaded_file).convert("RGB")
-        st.image(image, caption="📷 Uploaded Image", use_container_width=True)
+        st.image(image, caption="📷 Uploaded Image", use_column_width=True)
 
         with st.spinner("🔍 Analyzing image..."):
             input_tensor = transform(image).unsqueeze(0).to(DEVICE)
@@ -89,11 +84,11 @@ if uploaded_file is not None:
 
 # ==== GEMINI CHATBOT SECTION ====
 st.markdown("---")
-st.markdown("### 🤖 Gemini Chat Assistant")
-st.markdown("Ask anything about PCOS, ultrasound diagnostics, or how this app works!")
+st.markdown("### 🤖 Ask PCOSense AI")
+st.markdown("Got questions about PCOS, ultrasound interpretation, or this tool? Ask away!")
 
-user_input = st.text_input("💬 Please ask a question:", key="user_input")
+user_input = st.text_input("💬 Type your question here:")
 if user_input:
     with st.spinner("Gemini is thinking..."):
         response = chat_session.send_message(user_input)
-        st.markdown(f"🧠 Chatbot:** {response.text}")
+        st.markdown(f"🧠 **Gemini says:** {response.text}")
