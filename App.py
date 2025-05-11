@@ -36,11 +36,9 @@ st.set_page_config(
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
-    
     * {
         font-family: 'Poppins', sans-serif;
     }
-    
     .main {
         background-color: #f8f1f4;
     }
@@ -120,13 +118,11 @@ with st.sidebar:
     st.markdown("---")
     st.markdown('<div class="small-font">A women\'s best friend for PCOS detection and support</div>', unsafe_allow_html=True)
     st.markdown("---")
-    
     st.markdown("### Quick Facts")
     st.info("• PCOS affects about 1 in 5 (20%) Indian women")
     st.info("• It affects 5% to 10% of women in their reproductive age")
     st.info("• PCOS is a leading cause of female infertility")
     st.info("• Early diagnosis can help manage symptoms effectively")
-    
     st.markdown("---")
     st.markdown("### Resources")
     st.markdown("📚 [PCOS Diet Guide](https://example.com)")
@@ -140,7 +136,12 @@ st.markdown('<div class="medium-font">AI-powered PCOS detection and support syst
 # ==== BANNER IMAGE ====
 banner_path = "ChatGPT Image May 9, 2025, 10_39_26 AM.png"
 if os.path.exists(banner_path):
-    st.image(banner_path, use_container_width=True, caption="Empowering Women's Health Through AI", output_format="PNG", clamp=True, channels="RGB", class_="banner-image")
+    st.image(
+        banner_path,
+        use_container_width=True,
+        caption="Empowering Women's Health Through AI",
+        output_format="PNG"
+    )
 
 # ==== TABS ====
 tab1, tab2, tab3 = st.tabs(["🔍 PCOS Detection", "❓ About PCOS", "💬 Ask An Expert"])
