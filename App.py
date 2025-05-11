@@ -31,6 +31,15 @@ st.set_page_config(
     page_icon="🌸",
     initial_sidebar_state="expanded"
 )
+st.markdown("""
+    <style>
+    /* Hide the GitHub corner icon */
+    a[title="View source on GitHub"] {
+        display: none !important;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
 
 # ==== CUSTOM CSS ====
 st.markdown("""
