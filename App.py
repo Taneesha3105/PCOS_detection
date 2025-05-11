@@ -129,7 +129,7 @@ with st.sidebar:
     st.markdown("👩‍⚕ [Find a Specialist](https://example.com)")
 
 # ==== MAIN PAGE ====
-st.markdown('<div class="big-font">🌸PCOSense Companion🌸</div>', unsafe_allow_html=True)
+st.markdown('<div class="big-font">🌸 PCOSense Companion</div>', unsafe_allow_html=True)
 st.markdown('<div class="medium-font">AI-powered PCOS detection and support system</div>', unsafe_allow_html=True)
 
 # ==== BANNER IMAGE ====
@@ -235,62 +235,7 @@ with tab2:
     st.markdown("""
     <div class="info-box">
         <h3>What is PCOS?</h3>
-        <p>
-        Polycystic Ovary Syndrome (PCOS) is a common hormonal disorder affecting people assigned female at birth, particularly during their reproductive years. It is characterized by a combination of symptoms related to hormone imbalance, metabolism, and ovarian function.
-
-Key Features and Diagnostic Criteria
-PCOS is diagnosed when at least two of the following three features are present, after ruling out other causes:
-Irregular or infrequent periods: This indicates that the ovaries do not regularly release eggs (ovulate).
-Signs of excess androgens: These are male hormones present in higher-than-normal amounts, causing symptoms such as acne, excess facial or body hair (hirsutism), and sometimes scalp hair thinning.
-Polycystic ovaries: Detected via ultrasound, this means the ovaries are enlarged and contain many small fluid-filled sacs (follicles or "cysts").
-
-Common Symptoms
-Symptoms of PCOS can vary, but may include:
-Irregular, infrequent, or absent menstrual periods
-Excess hair growth on the face, chest, back, or buttocks (hirsutism)
-Acne or oily skin
-Weight gain, especially around the abdomen
-Thinning scalp hair or male-pattern baldness
-Infertility or difficulty getting pregnant
-Ovaries that are large or have many cysts
-Skin darkening (especially on the neck, groin, or under the breasts)
-Skin tags (small flaps of excess skin)
-Heavy menstrual bleeding
-Symptoms often begin around the time of the first menstrual period but can develop later, especially after significant weight gain.
-
-Causes and Risk Factors
-The exact cause of PCOS is not fully understood, but several factors are believed to contribute:
-Excess insulin: High insulin levels can increase androgen production, affecting ovulation.
-Hormonal imbalance: Elevated androgens interfere with normal ovarian function.
-Low-grade inflammation: Can stimulate the ovaries to produce more androgens.
-Heredity: PCOS tends to run in families, indicating a genetic component.
-Obesity: More common and often more severe in people who are overweight or obese.
-
-Health Risks and Complications
-PCOS is associated with a range of potential health risks:
-Infertility and pregnancy complications (miscarriage, gestational diabetes, preterm birth)
-Metabolic syndrome (increased risk of type 2 diabetes, high blood pressure, high cholesterol)
-Cardiovascular disease
-Endometrial cancer (due to prolonged absence of ovulation)
-Sleep apnea
-Depression and anxiety
-
-Diagnosis
-Diagnosis typically involves:
-Medical history and symptom assessment
-Physical examination (looking for signs of excess androgen and other symptoms)
-Blood tests (to check hormone levels and rule out other conditions)
-Ultrasound (to look for polycystic ovaries)
-
-Treatment and Management
-PCOS treatment is individualized and focuses on managing symptoms and reducing health risks:
-Lifestyle changes: Weight loss through a healthy diet and regular exercise can significantly improve symptoms and fertility.
-Medications: Hormonal birth control to regulate periods, anti-androgen medications to reduce excess hair and acne, and medications like metformin to improve insulin resistance.
-Fertility treatments: If pregnancy is desired, medications to induce ovulation may be used.
-Regular monitoring and support from healthcare professionals are important for managing PCOS and its complications.
-        
-        
-        </p>
+        <p>Polycystic Ovary Syndrome, or PCOS, is a health condition that affects about one in five (20%) Indian women. It affects 5% to 10% of women in their reproductive age and is a leading cause of female infertility.</p>
     </div>
     """, unsafe_allow_html=True)
 
