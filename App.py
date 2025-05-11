@@ -124,12 +124,12 @@ with st.sidebar:
     st.info("• Early diagnosis can help manage symptoms effectively")
     st.markdown("---")
     st.markdown("### Resources")
-    st.markdown("📚 [PCOS Diet Guide](https://example.com)")
-    st.markdown("🧘‍♀️ [Exercise Recommendations](https://example.com)")
-    st.markdown("👩‍⚕️ [Find a Specialist](https://example.com)")
+    st.markdown("📚[PCOS Diet Guide](https://example.com)")
+    st.markdown("🧘‍♀️[Exercise Recommendations](https://example.com)")
+    st.markdown("👩‍⚕️[Find a Specialist](https://example.com)")
 
 # ==== MAIN PAGE ====
-st.markdown('<div class="big-font">🌸 PCOSense Companion</div>', unsafe_allow_html=True)
+st.markdown('<div class="big-font">🌸PCOSense Companion🌸</div>', unsafe_allow_html=True)
 st.markdown('<div class="medium-font">AI-powered PCOS detection and support system</div>', unsafe_allow_html=True)
 
 # ==== BANNER IMAGE ====
@@ -143,14 +143,14 @@ if os.path.exists(banner_path):
     )
 
 # ==== TABS ====
-tab1, tab2, tab3 = st.tabs(["🔍 PCOS Detection", "❓ About PCOS", "💬 Ask An Expert"])
+tab1, tab2, tab3 = st.tabs(["🔍PCOS Detection", "❓About PCOS", "💬Ask An Expert"])
 
 with tab1:
     st.markdown('<div class="small-font">Upload an ultrasound image to detect signs of Polycystic Ovary Syndrome (PCOS)</div>', unsafe_allow_html=True)
     
     # ==== DOWNLOAD MODEL ====
     if not os.path.exists(MODEL_PATH):
-        with st.spinner("🔄 Downloading model..."):
+        with st.spinner("🔄Downloading model..."):
             r = requests.get(MODEL_URL)
             with open(MODEL_PATH, "wb") as f:
                 f.write(r.content)
@@ -186,7 +186,7 @@ with tab1:
                 st.image(image, caption="📷 Uploaded Ultrasound Image", use_container_width=True)
 
             with col2:
-                with st.spinner("🔍 Analyzing image..."):
+                with st.spinner("🔍Analyzing image..."):
                     input_tensor = transform(image).unsqueeze(0).to(DEVICE)
                     with torch.no_grad():
                         output = model(input_tensor)
@@ -197,7 +197,7 @@ with tab1:
                 if prediction == "PCOS":
                     st.markdown(f"""
                     <div class="prediction-box pcos-positive">
-                        <h2>🔍 Result: PCOS Detected</h2>
+                        <h2>🔍Result: PCOS Detected</h2>
                         <p>Confidence: {confidence * 100:.2f}%</p>
                         <p>This ultrasound image shows potential signs of Polycystic Ovary Syndrome.</p>
                         <p><b>Important:</b> This is not a medical diagnosis. Please consult a healthcare professional.</p>
@@ -206,7 +206,7 @@ with tab1:
                 else:
                     st.markdown(f"""
                     <div class="prediction-box pcos-negative">
-                        <h2>🔍 Result: No PCOS Detected</h2>
+                        <h2>🔍Result: No PCOS Detected</h2>
                         <p>Confidence: {confidence * 100:.2f}%</p>
                         <p>This ultrasound image does not show typical signs of Polycystic Ovary Syndrome.</p>
                         <p><b>Note:</b> Always consult with healthcare professionals for proper diagnosis.</p>
@@ -214,7 +214,7 @@ with tab1:
                     """, unsafe_allow_html=True)
 
         except Exception as e:
-            st.error("⚠ Invalid image file. Please try again.")
+            st.error("⚠Invalid image file. Please try again.")
     
     else:
         st.markdown("""
@@ -312,9 +312,9 @@ footer_col1, footer_col2, footer_col3 = st.columns([1, 2, 1])
 
 with footer_col1:
     st.markdown("### Connect With Us")
-    st.markdown("📱 [Instagram](https://instagram.com)")
-    st.markdown("🐦 [Twitter](https://twitter.com)")
-    st.markdown("📘 [Facebook Group](https://facebook.com)")
+    st.markdown("📱[Instagram](https://instagram.com)")
+    st.markdown("🐦[Twitter](https://twitter.com)")
+    st.markdown("📘[Facebook Group](https://facebook.com)")
 
 with footer_col2:
     st.markdown("### Disclaimer")
@@ -328,6 +328,6 @@ with footer_col2:
 
 with footer_col3:
     st.markdown("### Support")
-    st.markdown("❤️ [Donate](https://example.com)")
-    st.markdown("🤝 [Volunteer](https://example.com)")
-    st.markdown("📧 contact@pcosense.org")
+    st.markdown("❤️[Donate](https://example.com)")
+    st.markdown("🤝[Volunteer](https://example.com)")
+    st.markdown("📧contact@pcosense.org")
