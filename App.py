@@ -26,7 +26,7 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # ==== PAGE CONFIGURATION ====
 st.set_page_config(
-    page_title="PCOSense Companion🚺", 
+    page_title="PCOSense Companion", 
     layout="wide", 
     page_icon="🌸",
     initial_sidebar_state="expanded"
@@ -113,7 +113,7 @@ st.markdown("""
 
 # ==== SIDEBAR ====
 with st.sidebar:
-    st.markdown('<div class="medium-font">PCOSense Companion</div>', unsafe_allow_html=True)
+    st.markdown('<div class="medium-font">PCOSense Companion🚺</div>', unsafe_allow_html=True)
     st.markdown("---")
     st.markdown('<div class="small-font">A woman\'s best friend for PCOS detection and support❤</div>', unsafe_allow_html=True)
     st.markdown("---")
