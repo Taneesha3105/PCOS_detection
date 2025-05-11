@@ -237,7 +237,7 @@ with tab1:
 with tab2:
     st.markdown('<div class="medium-font">Understanding Polycystic Ovary Syndrome</div>', unsafe_allow_html=True)
     
-   st.markdown("""
+  st.write("""
 <div class="info-box">
     <h3>Common Symptoms</h3>
     <ul>
@@ -249,7 +249,8 @@ with tab2:
         <li>Oily skin or acne</li>
     </ul>
 </div>
-""", unsafe_allow_html=True)
+""")
+
 
     
     col1, col2 = st.columns(2)
