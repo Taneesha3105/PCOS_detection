@@ -140,7 +140,13 @@ st.markdown('<div class="medium-font">AI-powered PCOS detection and support syst
 # ==== BANNER IMAGE ====
 banner_path = "ChatGPT Image May 9, 2025, 10_39_26 AM.png"
 if os.path.exists(banner_path):
-    st.image(banner_path, use_container_width=True, caption="Empowering Women's Health Through AI", output_format="PNG", clamp=True, channels="RGB", class_="banner-image")
+    st.image(
+        banner_path,
+        use_container_width=True,
+        caption="Empowering Women's Health Through AI",
+        output_format="PNG"
+    )
+
 
 # ==== TABS ====
 tab1, tab2, tab3 = st.tabs(["🔍 PCOS Detection", "❓ About PCOS", "💬 Ask An Expert"])
