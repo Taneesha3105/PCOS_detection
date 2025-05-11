@@ -8,13 +8,15 @@ import requests
 import google.generativeai as genai
 
 # ==== GEMINI CONFIGURATION ====
+
 GOOGLE_API_KEY = "AIzaSyBZqGn9XXw8ML1uUHaqjulYOGwyHhfa2as"
 genai.configure(api_key=GOOGLE_API_KEY)
 chat_model = genai.GenerativeModel(
     model_name="models/gemini-2.0-flash",
     system_instruction="You are a helpful PCOS assistant. Provide empathetic, accurate information about Polycystic Ovary Syndrome (PCOS), its symptoms, treatments, and management strategies. Do not provide medical diagnosis."
 )
-chat_session = chat_model.start_chat()
+chat_session = chat_model.start_chat()  # Remove system message from history
+
 
 # ==== MODEL CONFIGURATION ====
 MODEL_URL = "https://github.com/Taneesha3105/PCOS_detection/releases/download/v1.0.0/PCOS_resnet18_model.pth"
@@ -30,30 +32,82 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# ==== CUSTOM CSS (Hide GitHub/Streamlit Branding & Enhance UI) ====
+# ==== CUSTOM CSS ====
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
-    * { font-family: 'Poppins', sans-serif; }
-    .main { background-color: #f8f1f4; }
-    .stApp { background-image: linear-gradient(135deg, #ffffff 0%, #fff9fb 100%); }
-    .big-font { font-size: 42px !important; font-weight: 700; color: #d94c63; text-align: center; margin: 20px 0; }
-    .medium-font { font-size: 22px !important; color: #444; text-align: center; }
-    .small-font { font-size: 16px !important; color: #666; }
-    .stButton>button { background-color: #d94c63; color: white; border-radius: 20px; padding: 10px 25px; border: none; font-weight: bold; transition: all 0.3s ease; }
-    .stButton>button:hover { background-color: #c03651; transform: scale(1.05); }
-    .info-box { background-color: #fff; border-radius: 15px; padding: 25px; margin: 15px 0; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-left: 5px solid #d94c63; }
-    .prediction-box { padding: 30px; border-radius: 15px; margin-top: 20px; text-align: center; }
-    .pcos-positive { background-color: rgba(217, 76, 99, 0.1); border: 2px solid #d94c63; }
-    .pcos-negative { background-color: rgba(75, 192, 192, 0.1); border: 2px solid #4bc0c0; }
-    .tabs-font { font-size: 18px !important; font-weight: bold; }
-    div[data-testid="stFileUploader"] > label > div { display: none; }
-    .banner-image { border-radius: 20px; margin: 25px 0; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-    /* Hide GitHub and Streamlit branding */
-    #GithubIcon {visibility: hidden;}
-    .css-1jc7ptx, .e1ewe7hr3, .viewerBadge_container__1QSob,
-    .styles_viewerBadge__1yB5_, .viewerBadge_link__1S137,
-    .viewerBadge_text__1JaDK, footer { display: none !important; }
+    * {
+        font-family: 'Poppins', sans-serif;
+    }
+    .main {
+        background-color: #f8f1f4;
+    }
+    .stApp {
+        background-image: linear-gradient(135deg, #ffffff 0%, #fff9fb 100%);
+    }
+    .big-font {
+        font-size: 42px !important;
+        font-weight: 700;
+        color: #d94c63;
+        text-align: center;
+        margin: 20px 0;
+    }
+    .medium-font {
+        font-size: 22px !important;
+        color: #444;
+        text-align: center;
+    }
+    .small-font {
+        font-size: 16px !important;
+        color: #666;
+    }
+    .stButton>button {
+        background-color: #d94c63;
+        color: white;
+        border-radius: 20px;
+        padding: 10px 25px;
+        border: none;
+        font-weight: bold;
+        transition: all 0.3s ease;
+    }
+    .stButton>button:hover {
+        background-color: #c03651;
+        transform: scale(1.05);
+    }
+    .info-box {
+        background-color: #fff;
+        border-radius: 15px;
+        padding: 25px;
+        margin: 15px 0;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        border-left: 5px solid #d94c63;
+    }
+    .prediction-box {
+        padding: 30px;
+        border-radius: 15px;
+        margin-top: 20px;
+        text-align: center;
+    }
+    .pcos-positive {
+        background-color: rgba(217, 76, 99, 0.1);
+        border: 2px solid #d94c63;
+    }
+    .pcos-negative {
+        background-color: rgba(75, 192, 192, 0.1);
+        border: 2px solid #4bc0c0;
+    }
+    .tabs-font {
+        font-size: 18px !important;
+        font-weight: bold;
+    }
+    div[data-testid="stFileUploader"] > label > div {
+        display: none;
+    }
+    .banner-image {
+        border-radius: 20px;
+        margin: 25px 0;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -61,25 +115,21 @@ st.markdown("""
 with st.sidebar:
     st.markdown('<div class="medium-font">PCOSense Companion</div>', unsafe_allow_html=True)
     st.markdown("---")
-    st.markdown('<div class="small-font">Your AI-powered friend for PCOS detection and support.</div>', unsafe_allow_html=True)
+    st.markdown('<div class="small-font">A women\'s best friend for PCOS detection and support</div>', unsafe_allow_html=True)
     st.markdown("---")
     st.markdown("### Quick Facts")
-    st.info("• 1 in 5 Indian women affected")
-    st.info("• Early diagnosis is key")
+    st.info("• PCOS affects about 1 in 5 (20%) Indian women")
+    st.info("• It affects 5% to 10% of women in their reproductive age")
     st.info("• PCOS is a leading cause of female infertility")
+    st.info("• Early diagnosis can help manage symptoms effectively")
     st.markdown("---")
     st.markdown("### Resources")
     st.markdown("📚 [PCOS Diet Guide](https://example.com)")
-    st.markdown("🧘‍♀️ [Exercise Recommendations](https://example.com)")
-    st.markdown("👩‍⚕️ [Find a Specialist](https://example.com)")
-    st.markdown("---")
-    st.markdown("### Connect")
-    st.markdown("📱 [Instagram](https://instagram.com)")
-    st.markdown("🐦 [Twitter](https://twitter.com)")
-    st.markdown("📘 [Facebook](https://facebook.com)")
+    st.markdown("🧘‍♀ [Exercise Recommendations](https://example.com)")
+    st.markdown("👩‍⚕ [Find a Specialist](https://example.com)")
 
 # ==== MAIN PAGE ====
-st.markdown('<div class="big-font">🌸 PCOSense Companion 🌸</div>', unsafe_allow_html=True)
+st.markdown('<div class="big-font">🌸 PCOSense Companion</div>', unsafe_allow_html=True)
 st.markdown('<div class="medium-font">AI-powered PCOS detection and support system</div>', unsafe_allow_html=True)
 
 # ==== BANNER IMAGE ====
@@ -93,11 +143,7 @@ if os.path.exists(banner_path):
     )
 
 # ==== TABS ====
-tab1, tab2, tab3 = st.tabs([
-    "🔍 PCOS Detection", 
-    "❓ About PCOS", 
-    "💬 Ask An Expert"
-])
+tab1, tab2, tab3 = st.tabs(["🔍 PCOS Detection", "❓ About PCOS", "💬 Ask An Expert"])
 
 with tab1:
     st.markdown('<div class="small-font">Upload an ultrasound image to detect signs of Polycystic Ovary Syndrome (PCOS)</div>', unsafe_allow_html=True)
@@ -129,7 +175,7 @@ with tab1:
     ])
 
     # ==== IMAGE UPLOAD ====
-    uploaded_file = st.file_uploader("", type=["jpg", "jpeg", "png"], help="Upload a clear ultrasound image (JPG, JPEG, PNG).")
+    uploaded_file = st.file_uploader("", type=["jpg", "jpeg", "png"])
 
     col1, col2 = st.columns([1, 1])
     
@@ -185,6 +231,7 @@ with tab1:
 
 with tab2:
     st.markdown('<div class="medium-font">Understanding Polycystic Ovary Syndrome</div>', unsafe_allow_html=True)
+    
     st.markdown("""
     <div class="info-box">
         <h3>What is PCOS?</h3>
@@ -192,7 +239,7 @@ with tab2:
     </div>
     """, unsafe_allow_html=True)
 
-    col1, col2 = st.columns(2)
+    
     with col1:
         st.markdown("""
         <div class="info-box">
@@ -205,6 +252,7 @@ with tab2:
             </ul>
         </div>
         """, unsafe_allow_html=True)
+    
     with col2:
         st.markdown("""
         <div class="info-box">
@@ -222,6 +270,7 @@ with tab2:
 with tab3:
     st.markdown('<div class="medium-font">Ask Our AI Assistant About PCOS</div>', unsafe_allow_html=True)
     st.markdown('<div class="small-font">Get answers to your questions about PCOS symptoms, management, and more.</div>', unsafe_allow_html=True)
+
     if "messages" not in st.session_state:
         st.session_state.messages = []
 
@@ -233,18 +282,29 @@ with tab3:
         if not prompt.strip():
             st.error("Please enter a valid question")
             st.stop()
+            
         try:
+            # Add user message
             st.session_state.messages.append({"role": "user", "content": prompt})
+            
+            # Generate response
             with st.spinner("Thinking..."):
                 response = chat_session.send_message(prompt)
                 response_text = response.text
+                
+            # Add assistant response
             st.session_state.messages.append({"role": "assistant", "content": response_text})
+            
+            # Redraw chat
             for message in st.session_state.messages:
                 with st.chat_message(message["role"]):
                     st.markdown(message["content"])
+                    
         except Exception as e:
             st.error(f"API Error: {str(e)}")
-            st.session_state.messages.pop()
+            st.session_state.messages.pop()  # Remove failed user message
+
+
 
 # ==== FOOTER ====
 st.markdown("---")
@@ -268,6 +328,6 @@ with footer_col2:
 
 with footer_col3:
     st.markdown("### Support")
-    st.markdown("❤️ [Donate](https://example.com)")
+    st.markdown("❤ [Donate](https://example.com)")
     st.markdown("🤝 [Volunteer](https://example.com)")
     st.markdown("📧 contact@pcosense.org")
