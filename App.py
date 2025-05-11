@@ -235,7 +235,7 @@ with tab2:
     st.markdown("""
     <div class="info-box">
         <h3>What is PCOS?</h3>
-        <p>Polycystic Ovary Syndrome (PCOS) is a common hormonal disorder affecting women of reproductive age. It is marked by irregular or absent periods, higher levels of male hormones (androgens), and sometimes multiple small cysts on the ovaries. Common symptoms include irregular menstrual cycles, excess facial or body hair, acne, weight gain, and difficulties with fertility. The exact cause is unknown, but factors like genetics, insulin resistance, and hormonal imbalance play a role. PCOS can increase the risk of type 2 diabetes, high blood pressure, heart disease, and mood disorders. Early diagnosis and lifestyle changes, such as healthy eating and exercise, can help manage symptoms and reduce long-term health risks.</p>
+        <p>Polycystic Ovary Syndrome (PCOS) is a common hormonal disorder affecting women of reproductive age. It is marked by irregular or absent periods, higher levels of male hormones (androgens) and sometimes multiple small cysts on the ovaries. Common symptoms include irregular menstrual cycles, excess facial or body hair, acne, weight gain and difficulties with fertility. The exact cause is unknown, but factors like genetics, insulin resistance and hormonal imbalance play a role. PCOS can increase the risk of type 2 diabetes, high blood pressure, heart disease and mood disorders. However, early diagnosis and lifestyle changes, such as healthy eating and exercise, can help manage symptoms and reduce long-term health risks.</p>
     </div>
     """, unsafe_allow_html=True)
 
