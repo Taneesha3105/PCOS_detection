@@ -8,15 +8,15 @@ import requests
 import google.generativeai as genai
 
 # ==== GEMINI CONFIGURATION ====
+
 GOOGLE_API_KEY = "AIzaSyBZqGn9XXw8ML1uUHaqjulYOGwyHhfa2as"
 genai.configure(api_key=GOOGLE_API_KEY)
-chat_model = genai.GenerativeModel(model_name="models/gemini-2.0-flash")
-chat_session = chat_model.start_chat(history=[
-    {
-        "role": "system", 
-        "parts": ["You are a helpful PCOS assistant. Provide empathetic, accurate information about Polycystic Ovary Syndrome (PCOS), its symptoms, treatments, and management strategies. Do not provide medical diagnosis."]
-    }
-])
+chat_model = genai.GenerativeModel(
+    model_name="models/gemini-2.0-flash",
+    system_instruction="You are a helpful PCOS assistant. Provide empathetic, accurate information about Polycystic Ovary Syndrome (PCOS), its symptoms, treatments, and management strategies. Do not provide medical diagnosis."
+)
+chat_session = chat_model.start_chat()  # Remove system message from history
+
 
 # ==== MODEL CONFIGURATION ====
 MODEL_URL = "https://github.com/Taneesha3105/PCOS_detection/releases/download/v1.0.0/PCOS_resnet18_model.pth"
@@ -289,25 +289,32 @@ with tab3:
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
 
-    prompt = st.chat_input("Ask anything about PCOS...")
-
-    if prompt is not None:
-        prompt = prompt.strip()
-        if not prompt:
-            st.error("Please enter a valid question.")
-        else:
+    if prompt := st.chat_input("Ask anything about PCOS..."):
+        if not prompt.strip():
+            st.error("Please enter a valid question")
+            st.stop()
+            
+        try:
+            # Add user message
             st.session_state.messages.append({"role": "user", "content": prompt})
-            with st.chat_message("user"):
-                st.markdown(prompt)
-            try:
-                with st.chat_message("assistant"):
-                    with st.spinner("Thinking..."):
-                        response = chat_session.send_message(prompt)
-                        response_text = getattr(response, "text", str(response))
-                        st.markdown(response_text)
-                st.session_state.messages.append({"role": "assistant", "content": response_text})
-            except Exception as e:
-                st.error(f"Sorry, there was an error contacting the Gemini API: {e}")
+            
+            # Generate response
+            with st.spinner("Thinking..."):
+                response = chat_session.send_message(prompt)
+                response_text = response.text
+                
+            # Add assistant response
+            st.session_state.messages.append({"role": "assistant", "content": response_text})
+            
+            # Redraw chat
+            for message in st.session_state.messages:
+                with st.chat_message(message["role"]):
+                    st.markdown(message["content"])
+                    
+        except Exception as e:
+            st.error(f"API Error: {str(e)}")
+            st.session_state.messages.pop()  # Remove failed user message
+
 
 
 # ==== FOOTER ====
