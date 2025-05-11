@@ -269,7 +269,7 @@ with tab2:
 
 with tab3:
     st.markdown('<div class="medium-font">🤖Ask Our AI Assistant About PCOS</div>', unsafe_allow_html=True)
-    st.markdown('<div class="small-font">Get answers to your questions about PCOS symptoms, management, and more.</div>', unsafe_allow_html=True)
+    st.markdown('<div class="small-font">Get answers to your questions about PCOS symptoms, management and more</div>', unsafe_allow_html=True)
 
     if "messages" not in st.session_state:
         st.session_state.messages = []
