@@ -236,20 +236,9 @@ with tab2:
     <div class="info-box">
         <h3>What is PCOS?</h3>
         <p>Polycystic Ovary Syndrome, or PCOS, is a health condition that affects about one in five (20%) Indian women. It affects 5% to 10% of women in their reproductive age and is a leading cause of female infertility.</p>
-        
-        <h3>Common Symptoms</h3>
-        <ul>
-            <li>Irregular periods or no periods</li>
-            <li>Difficulty getting pregnant</li>
-            <li>Excessive hair growth (hirsutism)</li>
-            <li>Weight gain</li>
-            <li>Thinning hair and hair loss from the head</li>
-            <li>Oily skin or acne</li>
-        </ul>
     </div>
     """, unsafe_allow_html=True)
-    
-    col1, col2 = st.columns(2)
+
     
     with col1:
         st.markdown("""
