@@ -26,7 +26,7 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # ==== PAGE CONFIGURATION ====
 st.set_page_config(
-    page_title="PCOSense Companion", 
+    page_title="PCOSense Companion🚺", 
     layout="wide", 
     page_icon="🌸",
     initial_sidebar_state="expanded"
