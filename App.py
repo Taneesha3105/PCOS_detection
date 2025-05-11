@@ -113,7 +113,6 @@ st.markdown("""
 
 # ==== SIDEBAR ====
 with st.sidebar:
-    st.image("https://raw.githubusercontent.com/yourusername/PCOSense/main/logo.png", width=100)
     st.markdown('<div class="medium-font">PCOSense Companion</div>', unsafe_allow_html=True)
     st.markdown("---")
     st.markdown('<div class="small-font">A women\'s best friend for PCOS detection and support</div>', unsafe_allow_html=True)
