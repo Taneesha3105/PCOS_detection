@@ -281,25 +281,38 @@ with tab2:
 with tab3:
     st.markdown('<div class="medium-font">Ask Our AI Assistant About PCOS</div>', unsafe_allow_html=True)
     st.markdown('<div class="small-font">Get answers to your questions about PCOS symptoms, management, and more.</div>', unsafe_allow_html=True)
-    
+
+    # Initialize chat history if not present
     if "messages" not in st.session_state:
         st.session_state.messages = []
 
+    # Display chat messages
     for message in st.session_state.messages:
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
 
-    if prompt := st.chat_input("Ask anything about PCOS..."):
-        st.session_state.messages.append({"role": "user", "content": prompt})
-        with st.chat_message("user"):
-            st.markdown(prompt)
-        
-        with st.chat_message("assistant"):
-            with st.spinner("Thinking..."):
-                response = chat_session.send_message(prompt)
-                st.markdown(response.text)
-        
-        st.session_state.messages.append({"role": "assistant", "content": response.text})
+    # User input
+    prompt = st.chat_input("Ask anything about PCOS...")
+
+    if prompt is not None:
+        prompt = prompt.strip()
+        if prompt == "":
+            st.error("Please enter a valid question.")
+        else:
+            st.session_state.messages.append({"role": "user", "content": prompt})
+            with st.chat_message("user"):
+                st.markdown(prompt)
+
+            try:
+                with st.chat_message("assistant"):
+                    with st.spinner("Thinking..."):
+                        response = chat_session.send_message(prompt)
+                        response_text = response.text if hasattr(response, "text") else str(response)
+                        st.markdown(response_text)
+                st.session_state.messages.append({"role": "assistant", "content": response_text})
+            except Exception as e:
+                st.error("Sorry, there was an error contacting the Gemini API. Please try again later.")
+
 
 # ==== FOOTER ====
 st.markdown("---")
