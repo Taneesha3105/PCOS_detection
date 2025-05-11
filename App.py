@@ -129,7 +129,7 @@ with st.sidebar:
     st.markdown("👩‍⚕ [Find a Specialist](https://example.com)")
 
 # ==== MAIN PAGE ====
-st.markdown('<div class="big-font">🌸 PCOSense Companion</div>', unsafe_allow_html=True)
+st.markdown('<div class="big-font">🌸PCOSense Companion🌸</div>', unsafe_allow_html=True)
 st.markdown('<div class="medium-font">AI-powered PCOS detection and support system</div>', unsafe_allow_html=True)
 
 # ==== BANNER IMAGE ====
