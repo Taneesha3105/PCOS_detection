@@ -36,9 +36,11 @@ st.set_page_config(
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
-    html, body, [class*="css"]  {
+    
+    * {
         font-family: 'Poppins', sans-serif;
     }
+    
     .main {
         background-color: #f8f1f4;
     }
@@ -113,16 +115,18 @@ st.markdown("""
 
 # ==== SIDEBAR ====
 with st.sidebar:
-    st.image("logo.png", width=100)
+    st.image("https://raw.githubusercontent.com/yourusername/PCOSense/main/logo.png", width=100)
     st.markdown('<div class="medium-font">PCOSense Companion</div>', unsafe_allow_html=True)
     st.markdown("---")
     st.markdown('<div class="small-font">A women\'s best friend for PCOS detection and support</div>', unsafe_allow_html=True)
     st.markdown("---")
+    
     st.markdown("### Quick Facts")
     st.info("• PCOS affects about 1 in 5 (20%) Indian women")
     st.info("• It affects 5% to 10% of women in their reproductive age")
     st.info("• PCOS is a leading cause of female infertility")
     st.info("• Early diagnosis can help manage symptoms effectively")
+    
     st.markdown("---")
     st.markdown("### Resources")
     st.markdown("📚 [PCOS Diet Guide](https://example.com)")
@@ -136,12 +140,7 @@ st.markdown('<div class="medium-font">AI-powered PCOS detection and support syst
 # ==== BANNER IMAGE ====
 banner_path = "ChatGPT Image May 9, 2025, 10_39_26 AM.png"
 if os.path.exists(banner_path):
-    st.image(
-        banner_path,
-        use_container_width=True,
-        caption="Empowering Women's Health Through AI",
-        output_format="PNG"
-    )
+    st.image(banner_path, use_container_width=True, caption="Empowering Women's Health Through AI", output_format="PNG", clamp=True, channels="RGB", class_="banner-image")
 
 # ==== TABS ====
 tab1, tab2, tab3 = st.tabs(["🔍 PCOS Detection", "❓ About PCOS", "💬 Ask An Expert"])
@@ -240,18 +239,12 @@ with tab2:
         
         <h3>Common Symptoms</h3>
         <ul>
-            <li>Irregular periods or no periods at all</li>
-            <li>Difficulty getting pregnant (infertility)</li>
-            <li>Excessive hair growth (hirsutism), often on the face, chest, back, or buttocks</li>
-            <li>Weight gain or trouble losing weight</li>
-            <li>Thinning hair or hair loss from the head (male-pattern baldness)</li>
-            <li>Oily skin or acne, sometimes severe</li>
-            <li>Darkening of the skin, especially in body creases like the neck, groin, or under the breasts</li>
-            <li>Skin tags (small excess flaps of skin in the armpits or neck area)</li>
-            <li>Fatigue or low energy</li>
-            <li>Mood changes, including depression or anxiety</li>
-            <li>Pelvic pain</li>
-            <li>Sleep problems, such as insomnia or sleep apnea</li>
+            <li>Irregular periods or no periods</li>
+            <li>Difficulty getting pregnant</li>
+            <li>Excessive hair growth (hirsutism)</li>
+            <li>Weight gain</li>
+            <li>Thinning hair and hair loss from the head</li>
+            <li>Oily skin or acne</li>
         </ul>
     </div>
     """, unsafe_allow_html=True)
