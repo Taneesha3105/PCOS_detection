@@ -123,9 +123,9 @@ with st.sidebar:
     st.info("• Early diagnosis can help manage symptoms effectively")
     st.markdown("---")
     st.markdown("### Resources")
-    st.markdown("📚 [PCOS Diet Guide](https://example.com)")
-    st.markdown("🧘‍♀ [Exercise Recommendations](https://example.com)")
-    st.markdown("👩‍⚕ [Find a Specialist](https://example.com)")
+    st.markdown("📚 [PCOS Diet Guide](https://www.hopkinsmedicine.org/health/wellness-and-prevention/pcos-diet)")
+    st.markdown("🧘‍♀ [Exercise Recommendations](https://www.healthline.com/health/womens-health/exercise-for-pcos#sample-plan)")
+    st.markdown("👩‍⚕ [Find a Specialist](https://www.pennmedicine.org/for-patients-and-visitors/find-a-program-or-service/penn-fertility-care/pcos-program)")
 
 # ==== MAIN PAGE ====
 st.markdown('<div class="big-font">🌸PCOSense Companion🌸</div>', unsafe_allow_html=True)
