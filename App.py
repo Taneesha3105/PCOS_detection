@@ -115,7 +115,7 @@ st.markdown("""
 with st.sidebar:
     st.markdown('<div class="medium-font">PCOSense Companion🚺</div>', unsafe_allow_html=True)
     st.markdown("---")
-    st.markdown('<div class="small-font">A women\'s best friend for PCOS detection and support</div>', unsafe_allow_html=True)
+    st.markdown('<div class="small-font">A women\'s best friend for PCOS detection and support❤</div>', unsafe_allow_html=True)
     st.markdown("---")
     st.markdown("### Quick Facts")
     st.info("• PCOS affects about 1 in 5 (20%) Indian women")
@@ -235,7 +235,7 @@ with tab2:
     st.markdown("""
     <div class="info-box">
         <h3>What is PCOS?</h3>
-        <p>Polycystic Ovary Syndrome (PCOS) is a common hormonal disorder affecting women of reproductive age. It is marked by irregular or absent periods, higher levels of male hormones (androgens), and sometimes multiple small cysts on the ovaries. Common symptoms include irregular menstrual cycles, excess facial or body hair, acne, weight gain, and difficulties with fertility. The exact cause is unknown, but factors like genetics, insulin resistance, and hormonal imbalance play a role. PCOS can increase the risk of type 2 diabetes, high blood pressure, heart disease, and mood disorders. However, early diagnosis and lifestyle changes, such as healthy eating and exercise, can help manage symptoms and reduce long-term health risks.</p>
+        <p>Polycystic Ovary Syndrome (PCOS) is a common hormonal disorder affecting women of reproductive age. It is marked by irregular or absent periods, higher levels of male hormones (androgens), and sometimes multiple small cysts on the ovaries. Common symptoms include irregular menstrual cycles, excess facial or body hair, acne, weight gain and difficulties with fertility. The exact cause is unknown, but factors like genetics, insulin resistance and hormonal imbalance play a role. PCOS can increase the risk of type 2 diabetes, high blood pressure, heart disease and mood disorders. However, early diagnosis and lifestyle changes, such as healthy eating and exercise, can help manage symptoms and reduce long-term health risks.</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -268,8 +268,8 @@ with tab2:
         """, unsafe_allow_html=True)
 
 with tab3:
-    st.markdown('<div class="medium-font">Ask Our AI Assistant About PCOS</div>', unsafe_allow_html=True)
-    st.markdown('<div class="small-font">Get answers to your questions about PCOS symptoms, management and more.</div>', unsafe_allow_html=True)
+    st.markdown('<div class="medium-font">🤖Ask our AI assistant about PCOS</div>', unsafe_allow_html=True)
+    st.markdown('<div class="small-font">Get answers to your questions about PCOS symptoms, management and more</div>', unsafe_allow_html=True)
 
     if "messages" not in st.session_state:
         st.session_state.messages = []
@@ -314,7 +314,7 @@ with footer_col1:
     st.markdown("### Connect With Us")
     st.markdown("📱[Instagram](https://instagram.com)")
     st.markdown("🐦[Twitter](https://twitter.com)")
-    st.markdown("📘[Facebook Group](https://facebook.com)")
+    st.markdown("📘[Facebook](https://facebook.com)")
 
 with footer_col2:
     st.markdown("### Disclaimer")
