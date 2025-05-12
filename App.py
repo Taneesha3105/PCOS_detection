@@ -25,8 +25,7 @@ CLASS_NAMES = ['PCOS', 'No PCOS']
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # ==== PAGE CONFIGURATION ====
-st.set_page_config
-(
+st.set_page_config(
     page_title="PCOSense Companion", 
     layout="wide", 
     page_icon="🌸",
@@ -34,8 +33,7 @@ st.set_page_config
 )
 
 # ==== CUSTOM CSS ====
-st.markdown
-("""
+st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
     * {
