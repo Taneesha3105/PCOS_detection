@@ -115,7 +115,7 @@ st.markdown("""
 with st.sidebar:
     st.markdown('<div class="medium-font">PCOSense Companion🚺</div>', unsafe_allow_html=True)
     st.markdown("---")
-    st.markdown('<div class="small-font">A women\'s best friend for PCOS detection and support❤</div>', unsafe_allow_html=True)
+    st.markdown('<div class="small-font">A woman\'s best friend for PCOS detection and support❤</div>', unsafe_allow_html=True)
     st.markdown("---")
     st.markdown("### Quick Facts")
     st.info("• PCOS affects about 1 in 5 (20%) Indian women")
