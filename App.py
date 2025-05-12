@@ -133,7 +133,7 @@ st.markdown('<div class="big-font">🌸PCOSense Companion</div>', unsafe_allow_h
 st.markdown('<div class="medium-font">AI-powered PCOS detection and support system</div>', unsafe_allow_html=True)
 
 # ==== BANNER IMAGE ====
-banner_path = "ChatGPT Image May 9, 2025, 10_39_26 AM.png"
+banner_path = "PCOS.png"
 if os.path.exists(banner_path):
     st.image(
         banner_path,
