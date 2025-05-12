@@ -11,8 +11,7 @@ import google.generativeai as genai
 
 GOOGLE_API_KEY = "AIzaSyBZqGn9XXw8ML1uUHaqjulYOGwyHhfa2as"
 genai.configure(api_key=GOOGLE_API_KEY)
-chat_model = genai.GenerativeModel
-(
+chat_model = genai.GenerativeModel(
     model_name="models/gemini-2.0-flash",
     system_instruction="You are a helpful PCOS assistant. Provide empathetic, accurate information about Polycystic Ovary Syndrome (PCOS), its symptoms, treatments, and management strategies. Do not provide medical diagnosis."
 )
