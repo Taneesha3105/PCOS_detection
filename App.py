@@ -113,7 +113,7 @@ st.markdown("""
 
 # ==== SIDEBAR ====
 with st.sidebar:
-    st.markdown('<div class="medium-font">PCOSense Companion</div>', unsafe_allow_html=True)
+    st.markdown('<div class="medium-font">PCOSense Companion🚺</div>', unsafe_allow_html=True)
     st.markdown("---")
     st.markdown('<div class="small-font">A women\'s best friend for PCOS detection and support</div>', unsafe_allow_html=True)
     st.markdown("---")
@@ -129,7 +129,7 @@ with st.sidebar:
     st.markdown("👩‍⚕[Find a Specialist](https://www.pennmedicine.org/for-patients-and-visitors/find-a-program-or-service/penn-fertility-care/pcos-program)")
 
 # ==== MAIN PAGE ====
-st.markdown('<div class="big-font">🌸PCOSense Companion</div>', unsafe_allow_html=True)
+st.markdown('<div class="big-font">🌸PCOSense Companion🌸</div>', unsafe_allow_html=True)
 st.markdown('<div class="medium-font">AI-powered PCOS detection and support system</div>', unsafe_allow_html=True)
 
 # ==== BANNER IMAGE ====
@@ -183,7 +183,7 @@ with tab1:
         try:
             image = Image.open(uploaded_file).convert("RGB")
             with col1:
-                st.image(image, caption="📷 Uploaded Ultrasound Image", use_container_width=True)
+                st.image(image, caption="📷Uploaded Ultrasound Image", use_container_width=True)
 
             with col2:
                 with st.spinner("🔍Analyzing image..."):
@@ -197,7 +197,7 @@ with tab1:
                 if prediction == "PCOS":
                     st.markdown(f"""
                     <div class="prediction-box pcos-positive">
-                        <h2>🔍 Result: PCOS Detected</h2>
+                        <h2>🔍Result: PCOS Detected</h2>
                         <p>Confidence: {confidence * 100:.2f}%</p>
                         <p>This ultrasound image shows potential signs of Polycystic Ovary Syndrome.</p>
                         <p><b>Important:</b> This is not a medical diagnosis. Please consult a healthcare professional.</p>
@@ -206,7 +206,7 @@ with tab1:
                 else:
                     st.markdown(f"""
                     <div class="prediction-box pcos-negative">
-                        <h2>🔍 Result: No PCOS Detected</h2>
+                        <h2>🔍Result: No PCOS Detected</h2>
                         <p>Confidence: {confidence * 100:.2f}%</p>
                         <p>This ultrasound image does not show typical signs of Polycystic Ovary Syndrome.</p>
                         <p><b>Note:</b> Always consult with healthcare professionals for proper diagnosis.</p>
@@ -214,7 +214,7 @@ with tab1:
                     """, unsafe_allow_html=True)
 
         except Exception as e:
-            st.error("⚠ Invalid image file. Please try again.")
+            st.error("⚠Invalid image file. Please try again.")
     
     else:
         st.markdown("""
@@ -235,7 +235,7 @@ with tab2:
     st.markdown("""
     <div class="info-box">
         <h3>What is PCOS?</h3>
-        <p>Polycystic Ovary Syndrome, or PCOS, is a health condition that affects about one in five (20%) Indian women. It affects 5% to 10% of women in their reproductive age and is a leading cause of female infertility.</p>
+        <p>Polycystic Ovary Syndrome (PCOS) is a common hormonal disorder affecting women of reproductive age. It is marked by irregular or absent periods, higher levels of male hormones (androgens), and sometimes multiple small cysts on the ovaries. Common symptoms include irregular menstrual cycles, excess facial or body hair, acne, weight gain, and difficulties with fertility. The exact cause is unknown, but factors like genetics, insulin resistance, and hormonal imbalance play a role. PCOS can increase the risk of type 2 diabetes, high blood pressure, heart disease, and mood disorders. However, early diagnosis and lifestyle changes, such as healthy eating and exercise, can help manage symptoms and reduce long-term health risks.</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -269,7 +269,7 @@ with tab2:
 
 with tab3:
     st.markdown('<div class="medium-font">Ask Our AI Assistant About PCOS</div>', unsafe_allow_html=True)
-    st.markdown('<div class="small-font">Get answers to your questions about PCOS symptoms, management, and more.</div>', unsafe_allow_html=True)
+    st.markdown('<div class="small-font">Get answers to your questions about PCOS symptoms, management and more.</div>', unsafe_allow_html=True)
 
     if "messages" not in st.session_state:
         st.session_state.messages = []
@@ -280,7 +280,7 @@ with tab3:
 
     if prompt := st.chat_input("Ask anything about PCOS..."):
         if not prompt.strip():
-            st.error("Please enter a valid question")
+            st.error("Please enter a valid question!")
             st.stop()
             
         try:
