@@ -15,7 +15,7 @@ chat_model = genai.GenerativeModel(
     model_name="models/gemini-2.0-flash",
     system_instruction="You are a helpful PCOS assistant. Provide empathetic, accurate information about Polycystic Ovary Syndrome (PCOS), its symptoms, treatments, and management strategies. Do not provide medical diagnosis."
 )
-chat_session = chat_model.start_chat()  
+chat_session = chat_model.start_chat()  # Remove system message from history
 
 
 # ==== MODEL CONFIGURATION ====
@@ -39,35 +39,29 @@ st.markdown("""
     * {
         font-family: 'Poppins', sans-serif;
     }
-    .main 
-    {
+    .main {
         background-color: #f8f1f4;
     }
-    .stApp 
-    {
+    .stApp {
         background-image: linear-gradient(135deg, #ffffff 0%, #fff9fb 100%);
     }
-    .big-font 
-    {
+    .big-font {
         font-size: 42px !important;
         font-weight: 700;
         color: #d94c63;
         text-align: center;
         margin: 20px 0;
     }
-    .medium-font 
-    {
+    .medium-font {
         font-size: 22px !important;
         color: #444;
         text-align: center;
     }
-    .small-font 
-    {
+    .small-font {
         font-size: 16px !important;
         color: #666;
     }
-    .stButton>button 
-    {
+    .stButton>button {
         background-color: #d94c63;
         color: white;
         border-radius: 20px;
@@ -76,13 +70,11 @@ st.markdown("""
         font-weight: bold;
         transition: all 0.3s ease;
     }
-    .stButton>button:hover 
-    {
+    .stButton>button:hover {
         background-color: #c03651;
         transform: scale(1.05);
     }
-    .info-box 
-    {
+    .info-box {
         background-color: #fff;
         border-radius: 15px;
         padding: 25px;
@@ -90,34 +82,28 @@ st.markdown("""
         box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         border-left: 5px solid #d94c63;
     }
-    .prediction-box 
-    {
+    .prediction-box {
         padding: 30px;
         border-radius: 15px;
         margin-top: 20px;
         text-align: center;
     }
-    .pcos-positive 
-    {
+    .pcos-positive {
         background-color: rgba(217, 76, 99, 0.1);
         border: 2px solid #d94c63;
     }
-    .pcos-negative 
-    {
+    .pcos-negative {
         background-color: rgba(75, 192, 192, 0.1);
         border: 2px solid #4bc0c0;
     }
-    .tabs-font 
-    {
+    .tabs-font {
         font-size: 18px !important;
         font-weight: bold;
     }
-    div[data-testid="stFileUploader"] > label > div 
-    {
+    div[data-testid="stFileUploader"] > label > div {
         display: none;
     }
-    .banner-image 
-    {
+    .banner-image {
         border-radius: 20px;
         margin: 25px 0;
         box-shadow: 0 10px 20px rgba(0,0,0,0.1);
@@ -127,9 +113,9 @@ st.markdown("""
 
 # ==== SIDEBAR ====
 with st.sidebar:
-    st.markdown('<div class="medium-font">PCOSense Companion🚺</div>', unsafe_allow_html=True)
+    st.markdown('<div class="medium-font">PCOSense Companion</div>', unsafe_allow_html=True)
     st.markdown("---")
-    st.markdown('<div class="small-font">A woman\'s best friend for PCOS detection and support❤</div>', unsafe_allow_html=True)
+    st.markdown('<div class="small-font">A women\'s best friend for PCOS detection and support</div>', unsafe_allow_html=True)
     st.markdown("---")
     st.markdown("### Quick Facts")
     st.info("• PCOS affects about 1 in 5 (20%) Indian women")
@@ -138,16 +124,16 @@ with st.sidebar:
     st.info("• Early diagnosis can help manage symptoms effectively")
     st.markdown("---")
     st.markdown("### Resources")
-    st.markdown("📚 [PCOS Diet Guide](https://www.hopkinsmedicine.org/health/wellness-and-prevention/pcos-diet)")
-    st.markdown("🧘‍♀ [Exercise Recommendations](https://www.healthline.com/health/womens-health/exercise-for-pcos)")
-    st.markdown("👩‍⚕ [Find a Specialist](https://www.pennmedicine.org/for-patients-and-visitors/find-a-program-or-service/penn-fertility-care/pcos-program)")
+    st.markdown("📚[PCOS Diet Guide](https://www.hopkinsmedicine.org/health/wellness-and-prevention/pcos-diet)")
+    st.markdown("🧘‍♀[Exercise Recommendations](https://www.healthline.com/health/womens-health/exercise-for-pcos)")
+    st.markdown("👩‍⚕[Find a Specialist](https://www.pennmedicine.org/for-patients-and-visitors/find-a-program-or-service/penn-fertility-care/pcos-program)")
 
 # ==== MAIN PAGE ====
-st.markdown('<div class="big-font">🌸PCOSense Companion🌸</div>', unsafe_allow_html=True)
+st.markdown('<div class="big-font">🌸PCOSense Companion</div>', unsafe_allow_html=True)
 st.markdown('<div class="medium-font">AI-powered PCOS detection and support system</div>', unsafe_allow_html=True)
 
 # ==== BANNER IMAGE ====
-banner_path = "PCOS.png"
+banner_path = "ChatGPT Image May 9, 2025, 10_39_26 AM.png"
 if os.path.exists(banner_path):
     st.image(
         banner_path,
@@ -164,7 +150,7 @@ with tab1:
     
     # ==== DOWNLOAD MODEL ====
     if not os.path.exists(MODEL_PATH):
-        with st.spinner("🔄 Downloading model..."):
+        with st.spinner("🔄Downloading model..."):
             r = requests.get(MODEL_URL)
             with open(MODEL_PATH, "wb") as f:
                 f.write(r.content)
@@ -181,8 +167,7 @@ with tab1:
     model = load_model()
 
     # ==== TRANSFORMS ====
-    transform = transforms.Compose
-    ([
+    transform = transforms.Compose([
         transforms.Resize((224, 224)),
         transforms.ToTensor(),
         transforms.Normalize(mean=[0.485, 0.456, 0.406],
@@ -198,7 +183,7 @@ with tab1:
         try:
             image = Image.open(uploaded_file).convert("RGB")
             with col1:
-                st.image(image, caption="📷Uploaded Ultrasound Image", use_container_width=True)
+                st.image(image, caption="📷 Uploaded Ultrasound Image", use_container_width=True)
 
             with col2:
                 with st.spinner("🔍Analyzing image..."):
@@ -237,7 +222,7 @@ with tab1:
             <h3>How to use the PCOS Detection tool:</h3>
             <ol>
                 <li>Upload a clear ultrasound image of the ovaries</li>
-                <li>Our ML model will analyze the image</li>
+                <li>Our AI model will analyze the image</li>
                 <li>Results will appear showing whether PCOS indicators are detected</li>
                 <li>Remember that this tool is for educational purposes only</li>
             </ol>
@@ -250,7 +235,7 @@ with tab2:
     st.markdown("""
     <div class="info-box">
         <h3>What is PCOS?</h3>
-        <p>Polycystic Ovary Syndrome (PCOS) is a common hormonal disorder affecting women of reproductive age. It is marked by irregular or absent periods, higher levels of male hormones (androgens), and sometimes multiple small cysts on the ovaries. Common symptoms include irregular menstrual cycles, excess facial or body hair, acne, weight gain, and difficulties with fertility. The exact cause is unknown, but factors like genetics, insulin resistance, and hormonal imbalance play a role. PCOS can increase the risk of type 2 diabetes, high blood pressure, heart disease, and mood disorders. Early diagnosis and lifestyle changes, such as healthy eating and exercise, can help manage symptoms and reduce long-term health risks.</p>
+        <p>Polycystic Ovary Syndrome, or PCOS, is a health condition that affects about one in five (20%) Indian women. It affects 5% to 10% of women in their reproductive age and is a leading cause of female infertility.</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -283,8 +268,8 @@ with tab2:
         """, unsafe_allow_html=True)
 
 with tab3:
-    st.markdown('<div class="medium-font">Ask our AI assistant about PCOS</div>', unsafe_allow_html=True)
-    st.markdown('<div class="small-font">Get answers to your questions about PCOS symptoms, management and more.</div>', unsafe_allow_html=True)
+    st.markdown('<div class="medium-font">Ask Our AI Assistant About PCOS</div>', unsafe_allow_html=True)
+    st.markdown('<div class="small-font">Get answers to your questions about PCOS symptoms, management, and more.</div>', unsafe_allow_html=True)
 
     if "messages" not in st.session_state:
         st.session_state.messages = []
@@ -295,7 +280,7 @@ with tab3:
 
     if prompt := st.chat_input("Ask anything about PCOS..."):
         if not prompt.strip():
-            st.error("Please enter a valid question!")
+            st.error("Please enter a valid question")
             st.stop()
             
         try:
@@ -319,6 +304,8 @@ with tab3:
             st.error(f"API Error: {str(e)}")
             st.session_state.messages.pop()  # Remove failed user message
 
+
+
 # ==== FOOTER ====
 st.markdown("---")
 footer_col1, footer_col2, footer_col3 = st.columns([1, 2, 1])
@@ -327,7 +314,7 @@ with footer_col1:
     st.markdown("### Connect With Us")
     st.markdown("📱[Instagram](https://instagram.com)")
     st.markdown("🐦[Twitter](https://twitter.com)")
-    st.markdown("📘[Facebook](https://facebook.com)")
+    st.markdown("📘[Facebook Group](https://facebook.com)")
 
 with footer_col2:
     st.markdown("### Disclaimer")
