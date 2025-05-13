@@ -118,7 +118,7 @@ with st.sidebar:
     st.markdown('<div class="small-font">A woman\'s best friend for PCOS detection and support❤</div>', unsafe_allow_html=True)
     st.markdown("---")
     st.markdown("### Quick Facts")
-    st.info("• PCOS affects about 1 in 5 (20%) Indian women")
+    st.info("• PCOS affects about 6% Indian women")
     st.info("• It affects 5% to 10% of women in their reproductive age")
     st.info("• PCOS is a leading cause of female infertility")
     st.info("• Early diagnosis can help manage symptoms effectively")
